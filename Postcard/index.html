@@ -195,7 +195,7 @@
 
       body {
         font-family: var(--font-primary);
-        font-size: 5.7pt;
+        font-size: 0.284rem;
         color: var(--black);
         word-break: break-word;
       }
@@ -241,7 +241,7 @@
         list-style-type: disc;
         margin-bottom: 0.5em;
       }
-      
+
       ol {
         list-style-type: decimal;
       }
@@ -432,11 +432,12 @@
       /* ANY OTHER STYLES THAT NEED MUSTACHE.JS CAPABILITIES */
     </style>
   </head>
-  <body style="background: white" class="u-placeholder-{{ placeholder-toggle-new }}{{^placeholder-toggle-new}}hide{{/placeholder-toggle-new}}
-                                         colourTheme--{{DU_colour-theme--pst}}{{^DU_colour-theme--pst}}purple{{/DU_colour-theme--pst}}
-                                         frontPageBgColor--{{{DU_front-page-background-colour--pst}}}{{^DU_front-page-background-colour--pst}}white{{/DU_front-page-background-colour--pst}}
-                                         element1Color--{{{DU_element-1-colour--pst}}}{{^DU_element-1-colour--pst}}purple{{/DU_element-1-colour--pst}}
-                                         element2Color--{{{DU_element-2-colour--pst}}}{{^DU_element-2-colour--pst}}purple{{/DU_element-2-colour--pst}}" data-crop="{{show-crop}}">
+  <body style="background: white" data-reduce-export-font-size-by-percent="1" data-reduce-firefox-font-size-by-percent="0" data-prevent-export-overflow="false"
+        class="u-placeholder-{{ placeholder-toggle-new }}{{^placeholder-toggle-new}}hide{{/placeholder-toggle-new}}
+               colourTheme--{{DU_colour-theme--pst}}{{^DU_colour-theme--pst}}purple{{/DU_colour-theme--pst}}
+               frontPageBgColor--{{{DU_front-page-background-colour--pst}}}{{^DU_front-page-background-colour--pst}}white{{/DU_front-page-background-colour--pst}}
+               element1Color--{{{DU_element-1-colour--pst}}}{{^DU_element-1-colour--pst}}purple{{/DU_element-1-colour--pst}}
+               element2Color--{{{DU_element-2-colour--pst}}}{{^DU_element-2-colour--pst}}purple{{/DU_element-2-colour--pst}}" data-crop="{{show-crop}}">
     <div class="placeholderMaster" data-opacity="{{ placeholder-opacity }}">
       {{#placeholder-image-1}}
       <div class="placeholderMaster__item" data-bg="{{ placeholder-image-1 }}"></div>
@@ -458,7 +459,7 @@
           </div><!--header-->
           <div class="body">
             <div class="column column--primary">
-              <div class="heading" data-max-height="273">{{{DU_heading--pst}}}</div><!--heading-->
+              <div class="heading" data-max-height="278">{{{DU_heading--pst}}}</div><!--heading-->
             </div><!--column-->
             <div class="column column--secondary">
               <div class="grid">
