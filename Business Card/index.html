@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Print Generic</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+    <script src="tinycolor.js"></script>
+    <link rel="stylesheet" type="text/css" href="minireset.css">
+    <link rel="stylesheet" type="text/css" href="crop.css">
+    <style>
+      * {
+        -webkit-font-smoothing: antialiased;
+        font-family: 'Roboto', sans-serif;
+      }
+
+      h1, h2, h3, h4, h5, h6 { font-weight: 700; }
+      h1 { font-size: 1.6em }
+      h2 { font-size: 1em; font-weight: 400; }
+
+      .fit {
+        position: absolute;
+        top: 3mm;
+        right: 3mm;
+        bottom: 3mm;
+        left: 3mm;
+      }
+      
+      .absolute {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        overflow: hidden; 
+      }
+
+      .crop-marks-false .bleed {
+        top: 0 !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important; 
+      }
+
+      .cover {
+        background-position: center center;
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+
+      .blend {
+        background-blend-mode: multiply;
+      }
+
+      .center-children {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .content * {
+        white-space: nowrap;
+        display: inline-block;
+        min-width: 100%;
+      }
+      #back-logo {     
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin: 0 auto;z-index: 5; 
+      }
+    </style>
+  </head>
+  <body style="background: white">
+
+    <div class="page">
+      <div class="bleed">
+        <div class="fit">
+          <div class="content" style="position: absolute; bottom: 1em; left: 1em; width: calc(100% - 4em);">
+            <h1 class="fitContent">{{{name}}}</h1>
+            <p class="fitContent" style="padding-top: 0.3em; font-size: 0.8em; color: {{{account.colors.primary}}}">{{{ position }}}</p>
+            <div style="font-size: 0.6em; padding-top: 0.3em; text-transform: uppercase;">
+              <p>{{{team.phone}}} <br>{{{team.email}}}</p>
+            </div>
+          </div>
+          <img id="front-logo" style="position: absolute; right: 1em; top: 1em; width: 2em" src="{{{account.logos.secondary}}}">
+        </div>
+      </div>
+    </div>
+
+    <div class="page">
+      <div class="bleed center-children">
+        <div class="absolute cover blend center-children bg-img" style="background-color: {{{account.colors.primary}}}; overflow: hidden;">
+          <img id="back-logo" style="width: 7em" src="{{{account.logos.reversed}}}">
+        </div>
+        <div class="absolute">
+          <div style="height: 100%; width: 100%; mix-blend-mode: multiply;">{{{ background-image }}}</div>
+        </div>
+      </div>
+    </div>
+    <!-- Fit Text JS -->
+    <script>
+      // Grab All Items to Apply fit text too.
+      var els = document.querySelectorAll('.fitContent');
+
+      // Essentially a foreach of the Elements to have their text fixed.
+      for(var i = 0; i < els.length; ++i) {
+        // Check elements size compared with Parents size if too big reduce font size by 1px.
+        while(els.item(i).offsetWidth > els.item(i).parentElement.offsetWidth) {
+          // Grab the Computed Font Size
+          var size = window.getComputedStyle(els.item(i), null).getPropertyValue('font-size');
+          // Reduce the size by 1 px
+          var newSize = parseInt(size) - 1 + "px";
+          // Set new font-size
+          els.item(i).style.fontSize = newSize;
+        }
+      }
+    </script>    
+    <!-- /end Fit Text JS -->
+    <script>
+      // light or dark theme based on brightness of account color
+
+      document.addEventListener('DOMContentLoaded', function() {
+        if (tinycolor("{{{account.colors.primary}}}").getBrightness() < 200) {
+        }  
+        else {
+          document.querySelector('#back-logo').src = '{{{account.logos.primary}}}';
+        }
+      })
+
+      function checkCrop() {
+        if ({{show-crop}} === true) {
+          document.body.classList.add('crop-marks-true')
+        } else {
+          document.body.classList.add('crop-marks-false')
+        }
+      }
+
+      checkCrop();
+
+      window.showCrop = {{show-crop}};
+    </script>
+    <script src="main.js"></script>
+    <script src="prefixfree.js"></script>
+  </body>
+</html>
