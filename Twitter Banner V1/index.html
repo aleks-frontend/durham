@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html data-sign="OSM">
+  <head>
+    <title>Template title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="css/minireset.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/placeholder-controller.css">
+
+    <style>
+      @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i');
+      @import url('https://fonts.googleapis.com/css?family=Noto+Serif');
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/Gotham/stylesheet.css');
+
+      /* Order inputs 
+      {{show-crop}}
+      {{ placeholder-opacity }}
+      {{ placeholder-image-1 }}
+      {{ placeholder-toggle-new }}
+      */
+
+      :root {
+        --white: {{{account.colors.white}}};
+        --ink: {{{account.colors.type-ink}}};
+        --purple: {{{account.colors.primary-purple}}};
+        --yellow: {{{account.colors.primary-yellow}}};
+        --cyan: {{{account.colors.primary-cyan}}};
+        --red: {{{account.colors.primary-red}}};
+        --gold: {{{account.colors.primary-gold}}};
+      }
+
+      /*Tapestry Color Definition*/
+
+      .gridTapestry--white {
+        --tapestry-color-dynamic: var(--white);
+      }
+
+      .gridTapestry--ink{
+        --tapestry-color-dynamic: var(--ink);
+      }
+
+      .gridTapestry--purple {
+        --tapestry-color-dynamic: var(--purple);
+      }
+
+      .gridTapestry--yellow {
+        --tapestry-color-dynamic: var(--yellow);
+      }
+
+      .gridTapestry--cyan {
+        --tapestry-color-dynamic: var(--cyan);
+      }
+
+      .gridTapestry--red {
+        --tapestry-color-dynamic: var(--red);
+      }
+
+      .gridTapestry--gold {
+        --tapestry-color-dynamic: var(--gold);
+      }
+
+      /*Text Color Definition*/      
+
+      .textColor--white {
+        --text-color-dynamic: var(--white);
+      }
+
+      .textColor--ink {
+        --text-color-dynamic: var(--ink);
+      }
+
+      html {
+        font-family: 'Gotham';
+        font-size: 11pt;
+        color: #000;
+        word-break: break-word;
+      }
+
+      .backgroundImage {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        overflow: hidden;
+      }
+
+      .backgroundImage div {
+        width: auto !important;
+        height: auto !important;
+        right: 0;
+        bottom: 0;
+      }      
+
+      /* Helper class for fixing Reposition tool bug */
+      .reposition-fix {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;        
+      }  
+
+      .container {
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      .fit {
+        top: 3mm;
+        right: 3mm;
+        bottom: 3mm;
+        left: 3mm;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(5, 94pt) 89pt repeat(3, 100pt);
+        grid-template-rows: repeat(4, 1fr);
+        width: 831pt;
+      }
+
+      .grid__item {
+        position: relative;
+        overflow: hidden;
+        background-color: var(--tapestry-color-dynamic);
+        opacity: 0.9;
+      }
+
+      .gridTapestry--big {
+        grid-column: span 2;
+        grid-row: span 2;
+      }
+
+      .gridTapestry--extraBig {
+        grid-column: span 4;
+        grid-row: span 2;
+      }
+
+      .gridTapestry--left {
+        border-radius: 0 0 0 100%;
+      }
+
+      .gridTapestry--right {
+        border-radius: 0 0 100% 0;
+      }
+
+      .u-grid-col-2-to-3 {
+        grid-column: 2 / 3;
+      }
+
+      .u-grid-col-3-to-4 {
+        grid-column: 3 / 4;
+      }
+
+      .u-grid-col-4-to-5 {
+        grid-column: 4 / 5;
+      }
+
+      .u-grid-col-5-to-6 {
+        grid-column: 5 / 6;
+      }
+
+      .u-grid-col-6-to-8 {
+        grid-column: 6 / 8;
+      }
+
+      .u-grid-col-6-to-10 {
+        grid-column: 6 / 10;
+      }
+
+      .heading {
+        padding: 0 29pt;
+        font-family: 'Gotham';
+        font-size: 44.9pt;
+        color: var(--text-color-dynamic);
+      }
+
+      .gridTapestry--purple .heading {
+        color: var(--white);
+      }
+
+      .gridTapestry--yellow .heading {
+        color: var(--ink);
+      }
+
+      .gridTapestry--white .heading {
+        color: var(--ink);
+      }
+
+      .subheading {
+        width: 100%;
+        padding: 27pt 34pt 67pt 29pt;
+        font-size: 22.5pt;
+        line-height: 1.2em;
+        color: var(--text-color-dynamic); 
+      }
+
+      .gridTapestry--purple .subheading {
+        color: var(--white);
+      }
+
+      .gridTapestry--yellow .subheading {
+        color: var(--ink);
+      }
+
+      .gridTapestry--white .subheading {
+        color: var(--ink);
+      }
+
+      .u-flex {
+        display: flex;
+        align-items: center;
+      }
+
+      /* ANY OTHER STYLES THAT NEED MUSTACHE.JS CAPABILITIES */
+    </style>
+  </head>
+  <body style="background: white" class="u-placeholder-{{ placeholder-toggle-new }}{{^placeholder-toggle-new}}hide{{/placeholder-toggle-new}}
+                                         gridTapestry--{{{DU_tapestry-element-colour--smbt1}}}{{^DU_tapestry-element-colour--smbt1}}white{{/DU_tapestry-element-colour--smbt1}}
+                                         textColor--{{{DU_text-colour-smbt1}}}{{^DU_text-colour-smbt1}}gold{{/DU_text-colour-smbt1}}" data-crop="{{show-crop}}">
+    <div class="placeholderMaster" data-opacity="{{ placeholder-opacity }}">
+      {{#placeholder-image-1}}
+      <div class="placeholderMaster__item" data-bg="{{ placeholder-image-1 }}"></div>
+      {{/placeholder-image-1}}
+    </div><!-- end placeholderMaster -->
+    <div class="page">
+
+      <div class="bleed">
+
+        <div class="container fit">
+
+          <div class="backgroundIimage"><div class="reposition-fix">{{{DU_background-image--smbt1}}}</div></div><!--backgroundIimage-->
+          <div class="grid">
+            <div class="grid__item u-grid-col-2-to-3 "></div><!--grid__item-->
+            <div class="grid__item u-grid-col-5-to-6 gridTapestry--right "></div><!--grid__item-->
+            <div class="grid__item u-flex u-grid-col-6-to-10 gridTapestry--extraBig">
+              <div class="heading">
+                <div data-max-height="225">
+                  {{{DU_heading--smbt1}}}
+                </div><!--data-max-height-->
+              </div><!--heading-->
+            </div><!--grid__item-->
+            <div class="grid__item"></div><!--grid__item-->
+            <div class="grid__item u-grid-col-3-to-4 gridTapestry--left"></div><!--grid__item-->
+            <div class="grid__item  u-grid-col-5-to-6"></div><!--grid__item-->
+            <div class="grid__item u-grid-col-2-to-3 gridTapestry--right"></div><!--grid__item-->
+            <div class="grid__item u-grid-col-4-to-5 gridTapestry--left"></div><!--grid__item-->
+            <div class="grid__item u-flex u-grid-col-6-to-8 gridTapestry--big gridTapestry--right">
+              <div class="subheading u-flex"> 
+                <div data-max-height="175">
+                  {{{DU_subheading--smbt1}}}  
+                </div><!--data-max-height-->
+              </div><!--subheading-->
+            </div><!--grid__item-->
+            <div class="grid__item u-grid-col-5-to-6"></div><!--grid__item-->
+          </div><!--grid-->
+
+        </div><!--container fit-->
+
+      </div><!--bleed-->
+
+    </div><!--page-->
+
+
+    <script>
+      window.showCrop = {{show-crop}}{{^show-crop}}true{{/show-crop}};
+    </script>
+    <script src="js/main.js"></script>   
+    <script src="js/prefixfree.js"></script>
+    <script src="js/placeholder-controller.js"></script>
+    <script src="js/char-limit.js"></script>
+    <script src="js/check-export-mode.js"></script>
+    <script src="js/max-line-check.js"></script>
+    <script src="js/max-height-check.js"></script>
+    <script src="https://outfit-assets-production.s3-accelerate.amazonaws.com/scripts/textfit.0.0.4.min.js" type="text/javascript"></script>
+    <script>
+
+      // Tracking text changes and firing text restriction functions (mutationObserver)
+      const overflowObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          maxLineCheck();
+          maxHeightCheck();
+          charLimit();
+        });
+      });
+
+      overflowObserver.observe(document.body, {
+        attributes: false,
+        characterData: true,
+        childList: true,
+        subtree: true,
+        attributeOldValue: false,
+        characterDataOldValue: true
+      });
+
+      // Calling text size restriction functions once the fonts are loaded
+      document.fonts.ready.then(() => {
+        maxLineCheck();
+        maxHeightCheck();
+      });
+
+      placeholderController();
+      checkCrop();
+      checkExport();
+      charLimit();
+
+      // TextFit function decreases the font of the selected element to make it fit in single line (if needed, uncomment the code bellow)
+      TextFit.fit({
+        selector: '.textFit'
+      });
+
+      function detectSystem() {
+        const isMac = window.navigator.appVersion.includes('Mac');
+        if ( isMac ) document.body.classList.add('is-mac');
+      }
+
+      detectSystem();      
+
+    </script>
+
+
+  </body>
+</html>
