@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html data-sign="OSM">
+  <head>
+    <title>Template title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="css/minireset.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/placeholder-controller.css">
+
+    <style>
+      
+      /*
+      {{show-crop}}
+      {{placeholder-opacity}}
+      {{placeholder-image-1}}
+      {{placeholder-toggle-new}}
+      {{DU_layout--tp1}}
+      {{DU_tapestry-element-colour--tp1}}
+      {{DU_background-image--tp1}}
+      */
+
+      :root {
+        --gold: {{{account.colors.primary-gold}}};
+        --red: {{{account.colors.primary-red}}};
+        --cyan: {{{account.colors.primary-cyan}}};
+        --yellow: {{{account.colors.primary-yellow}}};
+        --purple: {{{account.colors.primary-purple}}};
+      }
+
+      .gridTapestry--gold {
+        --tapestry-colour-dynamic: var(--gold);
+      }
+
+      .gridTapestry--red  {
+        --tapestry-colour-dynamic: var(--red);
+      }
+
+      .gridTapestry--cyan .grid__item{
+        --tapestry-colour-dynamic: var(--cyan);
+      }
+
+      .gridTapestry--yellow .grid__item{
+        --tapestry-colour-dynamic: var(--yellow);
+      }
+
+      .gridTapestry--purple .grid__item{
+        --tapestry-colour-dynamic: var(--purple);
+      }
+
+      .backgroundImage {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        overflow: hidden;
+      }
+
+      .backgroundImage div {
+        width: auto !important;
+        height: auto !important;
+        right: 0;
+        bottom: 0;
+      }      
+
+      /* Helper class for fixing Reposition tool bug */
+      .reposition-fix {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;        
+      }  
+
+      .container {
+        display: flex;
+        align-items: flex-end;
+        padding: 3mm;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(11, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        width: 659pt;
+        height: 120pt;
+      }
+      
+      .layout--1024x512 .grid {
+        width: 494pt;
+        height: 90pt;
+      }
+
+      .grid__item {
+        position: relative;
+        overflow: hidden;
+        opacity: 0.9;
+        background-color: var(--tapestry-colour-dynamic);
+      }
+
+      .gridTapestry--big {
+        grid-column: span 2;
+        grid-row: span 2;
+      }
+
+      .gridTapestry--left {
+        border-radius: 0 0 0 100%;
+      }
+
+      .gridTapestry--right {
+        border-radius: 0 0 100% 0;
+      }
+
+      .u-grid-col-1-to-2 {
+        grid-column: 1 / 2;
+      }
+
+      .u-grid-col-2-to-3 {
+        grid-column: 2 / 3;
+      }
+
+      .u-grid-col-3-to-5 {
+        grid-column: 3 / 5;
+      }
+
+      .u-grid-col-5-to-6 {
+        grid-column: 5 / 6;
+      }
+
+      .u-grid-col-6-to-7 {
+        grid-column: 6 / 7; 
+      }
+
+      .u-grid-col-7-to-8 {
+        grid-column: 7 / 8; 
+      }
+
+      .u-grid-col-8-to-9 {
+        grid-column: 8 / 9; 
+      }
+
+      .u-grid-col-9-to-10 {
+        grid-column: 9 / 10; 
+      }
+
+      .u-grid-col-10-to-11 {
+        grid-column: 10 / 11; 
+      }
+
+      .u-grid-col-11-to-12 {
+        grid-column: 11 / 12; 
+      }
+
+
+      /* ANY OTHER STYLES THAT NEED MUSTACHE.JS CAPABILITIES */
+    </style>
+  </head>
+  <body style="background: white" class="u-placeholder-{{ placeholder-toggle-new }}{{^placeholder-toggle-new}}hide{{/placeholder-toggle-new}}
+                                         layout--{{{DU_layout--tp1}}}{{^DU_layout--tp1}}1365x680{{/DU_layout--tp1}}
+                                         gridTapestry--{{{DU_tapestry-element-colour--tp1}}}{{^DU_tapestry-element-colour--tp1}}cyan{{/DU_tapestry-element-colour--tp1}}
+                                         "data-crop="{{show-crop}}">
+    <div class="placeholderMaster" data-opacity="{{ placeholder-opacity }}">
+      {{#placeholder-image-1}}
+      <div class="placeholderMaster__item" data-bg="{{ placeholder-image-1 }}"></div>
+      {{/placeholder-image-1}}
+    </div><!-- end placeholderMaster -->
+    <div class="page">
+
+      <div class="bleed">
+
+        <div class="container fit">
+
+          <div class="backgroundIimage"><div class="reposition-fix">{{{DU_background-image--tp1}}}</div></div><!--backgroundIimage-->
+          <div class="grid">
+            <div class="grid__item u-grid-col-1-to-2 gridTapestry--left"></div><!--grid__item-->
+            <div class="grid__item u-grid-col-3-to-5 gridTapestry--big gridTapestry--right"></div><!--grid__item-->           
+            <div class="grid__item u-grid-col-5-to-6 gridTapestry--left"></div><!--grid__item-->
+            <div class="grid__item u-grid-col-7-to-8"></div><!--grid__item-->         
+            <div class="grid__item u-grid-col-8-to-9"></div><!--grid__item-->
+            <div class="grid__item u-grid-col-10-to-11 gridTapestry--right"></div><!--grid__item-->      
+            <div class="grid__item u-grid-col-2-to-3"></div><!--grid__item-->
+            <div class="grid__item u-grid-col-5-to-6"></div><!--grid__item-->
+            <div class="grid__item u-grid-col-6-to-7"></div><!--grid__item--> 
+            <div class="grid__item u-grid-col-8-to-9 gridTapestry--right"></div><!--grid__item-->
+            <div class="grid__item u-grid-col-9-to-10"></div><!--grid__item-->
+            <div class="grid__item u-grid-col-10-to-11 gridTapestry--left"></div><!--grid__item-->
+            <div class="grid__item u-grid-col-11-to-12"></div><!--grid__item-->
+          </div><!--grid-->
+
+        </div><!--container fit-->
+
+      </div><!--bleed-->
+
+    </div><!--page-->
+
+
+    <script>
+      window.showCrop = {{show-crop}}{{^show-crop}}true{{/show-crop}};
+    </script>
+    <script src="js/main.js"></script>   
+    <script src="js/prefixfree.js"></script>
+    <script src="js/placeholder-controller.js"></script>
+    <script src="js/char-limit.js"></script>
+    <script src="js/check-export-mode.js"></script>
+    <script src="js/max-line-check.js"></script>
+    <script src="js/max-height-check.js"></script>
+    <script src="https://outfit-assets-production.s3-accelerate.amazonaws.com/scripts/textfit.0.0.4.min.js" type="text/javascript"></script>
+    <script>
+
+      // Tracking text changes and firing text restriction functions (mutationObserver)
+      const overflowObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          maxLineCheck();
+          maxHeightCheck();
+          charLimit();
+        });
+      });
+
+      overflowObserver.observe(document.body, {
+        attributes: false,
+        characterData: true,
+        childList: true,
+        subtree: true,
+        attributeOldValue: false,
+        characterDataOldValue: true
+      });
+
+      // Calling text size restriction functions once the fonts are loaded
+      document.fonts.ready.then(() => {
+        maxLineCheck();
+        maxHeightCheck();
+      });
+
+      placeholderController();
+      checkCrop();
+      checkExport();
+      charLimit();
+
+      // TextFit function decreases the font of the selected element to make it fit in single line (if needed, uncomment the code bellow)
+      TextFit.fit({
+        selector: '.textFit'
+      });
+      
+      function detectSystem() {
+        const isMac = window.navigator.appVersion.includes('Mac');
+		if ( isMac ) document.body.classList.add('is-mac');
+      }
+
+      detectSystem();      
+
+    </script>
+
+
+  </body>
+</html>
