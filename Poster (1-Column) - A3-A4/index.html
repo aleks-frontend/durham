@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html data-sign="OSB">
+  <head>
+    <title>Template title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="css/minireset.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/placeholder-controller.css">
+
+    <style>
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/Gotham/stylesheet.css');
+      @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i');
+
+      :root {
+        --primary: {{{account.colors.type-ink}}};
+        --white: #fff;
+
+        /* Primary Colours RGB */
+
+        --purple-pantone: {{{account.colors.primary-purple}}};
+        --yellow-pantone: {{{account.colors.primary-yellow}}};
+        --cyan-pantone: {{{account.colors.primary-cyan}}};
+        --red-pantone: {{{account.colors.primary-red}}};
+        --gold-pantone: {{{account.colors.primary-gold}}};
+
+        /* Secondary Colours RGB */
+
+        --heather-pantone: {{{account.colors.secondary-heather}}};
+        --stone-pantone: {{{account.colors.secondary-stone}}};
+        --sky-pantone: {{{account.colors.secondary-sky}}};
+        --cedar-pantone: {{{account.colors.secondary-cedar}}};
+        --concrete-pantone: {{{account.colors.secondary-concrete}}};
+
+        --font-primary: 'Gotham';
+        --font-secondary: 'Open Sans', sans-serif;
+        --headings-colour: var(--primary);
+        --background-colour: var(--white);
+        --grid-item: var(--purple-pantone);
+      }
+
+      .backgroundColor--white {
+        --background-colour: var(--white);
+      }
+
+      .backgroundColor--heather .fit {
+        --background-colour: var(--heather-pantone);
+      }
+
+      .backgroundColor--stone .fit {
+        --background-colour: var(--stone-pantone);
+      }
+
+      .backgroundColor--sky .fit {
+        --background-colour: var(--sky-pantone);
+      }
+
+      .backgroundColor--cedar .fit {
+        --background-colour: var(--cedar-pantone);
+      }
+
+      .backgroundColor--concrete .fit {
+        --background-colour: var(--concrete-pantone);
+      }
+
+      .headingsColour--purple {
+        --headings-colour: var(--purple-pantone);
+      }
+
+      .headingsColour--yellow {
+        --headings-colour: var(--yellow-pantone);
+      }
+
+      .headingsColour--cyan {
+        --headings-colour: var(--cyan-pantone);
+      }
+
+      .headingsColour--red {
+        --headings-colour: var(--red-pantone);
+      }
+
+      .headingsColour--gold {
+        --headings-colour: var(--gold-pantone);
+      }
+
+      .headingsColour--white {
+        --headings-colour: var(--white);
+      }
+
+      .backgroundColor--white.headingsColour--white {
+        --headings-colour: var(--primary);
+      }
+
+      .grid__item--purple {
+        --grid-item: var(--purple-pantone);
+      }
+
+      .grid__item--yellow {
+        --grid-item: var(--yellow-pantone);
+      }
+
+      .grid__item--cyan {
+        --grid-item: var(--cyan-pantone);
+      }
+
+      .grid__item--red {
+        --grid-item: var(--red-pantone);
+      }
+
+      .grid__item--gold {
+        --grid-item: var(--gold-pantone);
+      }
+
+      strong {
+        font-weight: 600;
+      }
+
+      html {
+        font-family: var(--font-primary);
+        font-size: 11pt;
+        color: var(--primary);
+      }
+
+      .backgroundImage {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        overflow: hidden;
+      }
+
+      .backgroundImage div {
+        width: auto !important;
+        height: auto !important;
+        right: 0;
+        bottom: 0;
+      }      
+
+      /* Helper class for fixing Reposition tool bug */
+      .reposition-fix {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;        
+      }     
+
+
+      .fit {
+        display: flex;
+        flex-direction: column;    
+        padding: 0.9104rem 0.7937rem 0.7003rem;
+        background: var(--background-colour);
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        height: 2.4043rem;
+      }
+
+      .header .column--left {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .logo {
+        margin-left: 0.0233rem;
+        width: 3.4174rem;
+      }
+
+      .info {
+        margin-left: 1.02rem;
+        margin-top: 0.12rem;
+        font-size: 0.33rem; 
+        line-height: 1em;
+      }
+
+      .strapline {
+        width: 4.26rem;
+        padding-top: 0.67rem;
+        padding-right: 0.05rem;
+      }
+
+      .body {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        overflow: hidden;
+      }
+
+      .bodyTop {
+        flex: 1;
+      }
+
+      .bodyBottom {
+        margin-bottom: 0.195rem;
+      }
+
+      .heading {
+        margin: 0pt 1.0047rem 0.1494rem 1.0047rem;
+        font-weight: 500;
+        color: var(--headings-colour);
+        font-size: 0.654rem;
+      }
+
+      .subheading {
+        margin: 0pt 1.0047rem 0.1494rem 1.0047rem;
+        color: var(--headings-colour);
+        font-size: 0.561rem;
+      }
+
+      .content {
+        font-size: 0.350rem;
+        line-height: 1.2em;
+      }
+
+      .content a {
+        color: var(--primary);
+        text-decoration: none;
+      }
+
+      .content h1 {
+        font-size: 0.701rem;
+        font-weight: 500;
+      }
+
+      .content h2 {
+        font-size: 0.537rem;
+        font-weight: 500;
+      }
+
+      .content h3 {
+        font-size: 0.42rem;
+        font-weight: 500;
+      }
+
+      .content h4 {
+        font-size: 0.35rem;
+        font-weight: 500;
+      }
+
+      .content p {
+        margin-bottom: 0.43rem;
+        font-size: 0.33rem;
+        line-height: 1.2em;
+      }
+
+      .content ul {
+        padding-left: 0.24rem;
+      }
+
+      .content li {
+        position: relative;
+        font-size: 0.33rem;
+        line-height: 1.2em;
+      }
+
+      .content li:before {
+        content: "•";
+        position: absolute;
+        left: -0.25rem;
+        top: 0;
+        width: 2pt;
+        height: 2pt;
+        color: var(--ink);
+      }
+
+      .content p:last-child,
+      .content li:last-child {
+        margin-bottom: 0;
+      }
+
+      .grid {
+        height: 9.4026rem;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        display: grid;
+      }
+
+      .grid--alt {
+        grid-template-columns: 1fr 1fr 2fr;
+        grid-template-rows: 1fr 1fr;
+        height: 6.3026rem;
+      }
+
+      .grid__item--element {
+        background: var(--grid-item);
+        clip-path: inset(0 0 0 0 round 0 0 0 6.1859rem);
+        -webkit-clip-path: inset(0 0 0 0 round 0 0 0 6.1859rem);    
+      }     
+
+      .grid__item--big {
+        grid-column: 3/-1;
+        grid-row: 2/-1;
+        clip-path: inset(0 0 0 0 round 0 0 6.1859rem 0);
+        -webkit-clip-path: inset(0 0 0 0 round 0 0 6.1859rem 0);
+      }
+
+      .grid--alt .grid__item--big { grid-row: 1/-1; }
+
+      .grid__item--image {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .footer {
+        max-width: 8.88rem;
+        margin-bottom: -0.1rem;
+        margin-top: 0.1rem;
+        padding-left: 0.1401rem;  
+        font-size: 0;
+      }
+
+      .url {
+        position: relative;
+        font-size: 0.46rem;
+      }
+
+      .address {
+        position: relative;
+        font-size: 0.35rem;
+      }
+
+      .export-id {
+        margin-top: -8pt;
+        text-align: right;
+        font-size: 8pt;
+        text-transform:uppercase;
+      }
+
+      a {
+        text-decoration: none;
+        color: var(--primary);
+      }
+
+      .darkContent {
+        position: relative;
+        padding: 0.42rem;
+        font-size: 0.349rem;
+        line-height: 1em;
+        font-family: var(--font-primary);
+        color: var(--white);
+        word-break: break-all;
+      }
+
+      .darkContent--yellow,
+      .darkContent--cyan, 
+      .darkContent--gold {
+        color: var(--primary);
+      }
+
+      .darkContent--yellow  { background: var(--yellow-pantone); }
+      .darkContent--purple { background: var(--purple-pantone); }
+      .darkContent--cyan { background: var(--cyan-pantone); }
+      .darkContent--red { background: var(--red-pantone); }
+      .darkContent--gold  { background: var(--gold-pantone); }
+
+      .grid--alt .grid__item--firstRow { display: none; }
+
+      .u-col-span-2 { grid-column: span 2; }
+
+      /* ANY OTHER STYLES THAT NEED MUSTACHE.JS CAPABILITIES */
+    </style>
+  </head>
+  <body style="background: white" class="u-placeholder-{{ placeholder-toggle-new }}{{^placeholder-toggle-new}}hide{{/placeholder-toggle-new}}
+                                         backgroundColor--{{{DU_page-background-colour--pr}}}
+                                         headingsColour--{{{DU_headings-colour}}}
+                                         " data-crop="{{show-crop}}">
+    <div class="placeholderMaster" data-opacity="{{ placeholder-opacity }}">
+      {{#placeholder-image-1}}
+      <div class="placeholderMaster__item" data-bg="{{ placeholder-image-1 }}"></div>
+      {{/placeholder-image-1}}
+    </div><!-- end placeholderMaster -->
+    <div class="page js-page">
+
+      <div class="bleed">
+
+        <div class="container fit">
+
+          <div class="header">
+            <div class="column column--left">
+              <img src="{{{account.logos.primary}}}" class="logo" />
+              {{#team.lock-up-name}}<div class="info" data-max-line="2">{{{team.lock-up-name}}}</div>{{/team.lock-up-name}}<!-- info -->
+            </div> <!-- column -->
+            <div class="column">
+              <img src="https://files.outfit.io/media_library_items/91821/strapline.png" class="strapline" /> <!-- strapline -->
+            </div> <!-- column -->
+          </div> <!-- header -->
+          <div class="body">
+            <div class="bodyTop">
+              <div class="bodyTop__inner js-bodyTop__inner" data-max-height="dynamic">
+                <div class="heading" data-max-line="{{#DU_subheading--pr}}2{{/DU_subheading--pr}}{{^DU_subheading--pr}}3{{/DU_subheading--pr}}"> {{{DU_heading--pr}}} </div> <!-- heading  -->
+                <div class="subheading" data-max-line="2"> {{{DU_subheading--pr}}} </div> <!-- subheading  -->
+                <div class="content"> {{{DU_content--pr}}} </div> <!-- content -->
+              </div>
+            </div> <!-- bodyTop -->
+            <div class="bodyBottom js-subtrahend">
+              <div class="grid js-grid"> 
+                <div class="grid__item grid__item--image u-col-span-2 grid__item--firstRow"> <div class="reposition-fix"> {{{DU_image-top-left--pr}}} </div> <!--reposition-fix --> </div> <!-- grid__item -->
+                <div class="grid__item grid__item--firstRow"> </div> <!-- grid__item -->
+                <div class="darkContent darkContent--{{DU_square-background-colour--pr}}{{^DU_square-background-colour--pr}}purple{{/DU_square-background-colour--pr}} grid__item--firstRow">
+                  <div data-max-height="dynamic">{{{DU_highlighted-text--pr}}}</div> <!-- dynamic -->
+                </div> <!-- darkContent -->
+                <div class="grid__item grid__item--element grid__item--{{^DU_element-colour--pr}}purple{{/DU_element-colour--pr}}{{DU_element-colour--pr}}"></div> <!-- grid__item -->
+                <div class="grid__item"> </div> <!-- grid__item -->
+                <div class="grid__item grid__item--big grid__item--image"> <div class="reposition-fix"> {{{DU_image-right--pr}}} </div> <!--reposition-fix --> </div> <!-- grid__item -->
+                <div class="grid__item"> </div> <!-- grid__item -->
+                <div class="grid__item grid__item--image"> <div class="reposition-fix"> {{{DU_image-left--pr}}} </div> <!--reposition-fix --> </div> <!-- grid__item -->
+              </div> <!-- grid -->
+            </div> <!-- bodyBottom -->
+          </div> <!-- body -->
+          <div class="footer"> 
+            <div class="url">
+              <div class="textFit" data-max-line="1" style="line-height: 1.2em;"><a href="durham.ac.uk{{#DU_url--pr}}/{{/DU_url--pr}}{{DU_url--pr}}"> durham.ac.uk{{#DU_url--pr}}/{{/DU_url--pr}}{{{DU_url--pr}}}</a></div>
+            </div>
+            {{#DU_address--pr}}
+            <div class="address">
+              <div class="textFit" data-max-line="1" style="line-height: 1.2em;">{{{DU_address--pr}}}</div>
+            </div>
+            {{/DU_address--pr}}
+          </div> <!-- footer -->
+          <footer><p class="export-id">{{#metadata}}OUT_{{export_id}}{{/metadata}}{{^metadata}}EXPORT ID WILL GO HERE</p>{{/metadata}}</footer>
+        </div><!--container fit-->
+
+      </div><!--bleed-->
+
+    </div><!--page-->
+
+
+    <script>
+      window.showCrop = {{show-crop}}{{^show-crop}}true{{/show-crop}};
+    </script>
+    <script src="js/main.js"></script>   
+    <script src="js/prefixfree.js"></script>
+    <script src="js/placeholder-controller.js"></script>
+    <script src="js/char-limit.js"></script>
+    <script src="js/check-export-mode.js"></script>
+    <script src="js/max-line-check.js"></script>
+    <script src="js/max-height-check.js"></script>
+    <script src="https://outfit-assets-production.s3-accelerate.amazonaws.com/scripts/textfit.0.0.4.min.js" type="text/javascript"></script>
+    <script>
+
+      function pageStructureChange() {
+        const measuringSection = document.querySelector('.js-bodyTop__inner');
+        const gridSection = document.querySelector('.js-grid');
+        const page = document.querySelector('.js-page'); 
+        const pageFontSize = parseInt(window.getComputedStyle(page, null).getPropertyValue("font-size").slice(0,-2));
+
+        const measuringSectionHeight = measuringSection.offsetHeight / pageFontSize;
+
+        if( measuringSectionHeight > 4.9) { 
+          gridSection.classList.add('grid--alt');
+          maxHeightCheck();
+        } else { 
+          gridSection.classList.remove('grid--alt');
+          maxHeightCheck();
+        }
+      }
+
+      // Tracking text changes and firing text restriction functions (mutationObserver)
+      const overflowObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          maxLineCheck();
+          maxHeightCheck();
+          charLimit();
+          pageStructureChange();
+        });
+      });
+
+      overflowObserver.observe(document.body, {
+        attributes: false,
+        characterData: true,
+        childList: true,
+        subtree: true,
+        attributeOldValue: false,
+        characterDataOldValue: true
+      });
+
+      // Calling text size restriction functions once the fonts are loaded
+      document.fonts.ready.then(() => {
+        maxLineCheck();
+        maxHeightCheck();
+        pageStructureChange();
+      });
+
+      pageStructureChange();
+      placeholderController();
+      checkCrop();
+      checkExport();
+      charLimit();
+
+      // TextFit function decreases the font of the selected element to make it fit in single line (if needed, uncomment the code bellow)
+      TextFit.fit({
+        selector: '.textFit'
+      });
+
+      function detectSystem() {
+        const isMac = window.navigator.appVersion.includes('Mac');
+        if ( isMac ) document.body.classList.add('is-mac');
+      }
+
+      detectSystem();      
+
+    </script>
+
+
+  </body>
+</html>
