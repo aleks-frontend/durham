@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html data-sign="OSM">
+  <head>
+    <title>Template title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="css/minireset.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/placeholder-controller.css">
+
+    <style>
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/Gotham/stylesheet.css');
+      @import url('https://fonts.googleapis.com/css?family=Noto+Serif&display=swap');
+
+      :root {
+        --white: {{{account.colors.white}}};
+        --ink: {{{account.colors.type-ink}}};
+
+        --cyan: {{{account.colors.primary-cyan}}};
+        --gold: {{{account.colors.primary-gold}}};
+        --purple: {{{account.colors.primary-purple}}};
+        --red: {{{account.colors.primary-red}}};
+        --yellow: {{{account.colors.primary-yellow}}};
+
+        --concrete: {{{account.colors.secondary-concrete}}};
+        --cedar: {{{account.colors.secondary-cedar}}};
+        --heather: {{{account.colors.secondary-heather}}};
+        --sky: {{{account.colors.secondary-sky}}};
+        --stone: {{{account.colors.secondary-stone}}};
+        --white: {{{account.colors.white}}};
+      }
+
+      .backgroundColor--concrete {
+        --dynamic-color: var(--concrete);
+      }
+
+      .backgroundColor--cedar {
+        --dynamic-color: var(--cedar);
+      }
+
+      .backgroundColor--heather {
+        --dynamic-color: var(--heather);
+      }
+
+      .backgroundColor--sky {
+        --dynamic-color: var(--sky);
+      }
+
+      .backgroundColor--stone {
+        --dynamic-color: var(--stone);
+      }
+
+      .backgroundColor--white {
+        --dynamic-color: var(--white);
+      }
+
+      strong {
+        font-weight: 600;
+      }
+
+      html {
+        font-family: "Gotham";
+        font-size: 11pt;
+        color: var(--ink);
+        word-break: break-word;
+      }
+
+      .backgroundImage {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        overflow: hidden;
+      }
+
+      .backgroundImage div {
+        width: auto !important;
+        height: auto !important;
+        right: 0;
+        bottom: 0;
+      }      
+
+      /* Helper classes */
+      .u-hide { display: none; }
+
+      /* Helper class for fixing Reposition tool bug */
+      .reposition-fix {
+        position: absolute;
+        overflow: hidden;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;        
+      }
+
+      .reposition-fix div {
+        top: 0 !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        padding: 0.86rem 0.84rem 0.72rem 0.79rem;
+        background-color: var(--dynamic-color);
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        padding-bottom: 0.31rem;
+      }
+      
+      .header .column--left {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .logo {
+        width: 3.53rem;
+        height: 1.61rem;
+        object-fit: contain;
+      }
+      
+      .info {
+        margin-left: 1.02rem;
+        margin-top: 0.12rem;
+        font-size: 0.33rem; 
+        line-height: 1em;
+      }
+
+      .strapline {
+        width: 4.26rem;
+        padding-top: 0.67rem;
+        padding-right: 0.05rem;
+      }
+
+      .body {    
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        overflow: hidden;
+      }
+
+      .body__top {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        padding: 0 0.54rem 0.2rem 1rem;
+        overflow: hidden;
+      }
+
+      .heading {
+        margin-bottom: 0.19rem;
+        font-size: 0.54rem;
+        letter-spacing: 0.4pt;
+        line-height: 1.25em;
+      }
+      
+      .heading-1 {
+      /*font-weight: 600;*/
+      font-weight: 500;
+      }
+      
+      .subheading {
+        margin-bottom: 0.51rem;
+        font-size: 0.46rem;
+        line-height: 1.2em;
+        letter-spacing: 0.1pt;
+      }
+
+      .content {
+        column-count: 2;
+        column-gap: 0.18rem;
+      }
+
+      .layout--3-column .content {
+        column-count: 3;
+        column-gap: 0.3rem;
+      }
+
+      .content__wrapper {
+        flex: 1;
+      }
+
+      .content h1 {
+        font-size: 0.701rem;
+        font-weight: 500;
+      }
+
+      .content h2 {
+        font-size: 0.537rem;
+        font-weight: 500;
+      }
+
+      .content h3 {
+        font-size: 0.42rem;
+        font-weight: 500;
+      }
+
+      .content h4 {
+        font-size: 0.35rem;
+        font-weight: 500;
+      }
+
+      .content p {
+        margin-bottom: 0.43rem;
+        font-size: 0.33rem;
+        line-height: 1.2em;
+      }
+
+      .content ul {
+        padding-left: 0.24rem;
+      }
+
+      .content li {
+        position: relative;
+        font-size: 0.33rem;
+        line-height: 1.2em;
+      }
+
+      .content li:before {
+        content: "•";
+        position: absolute;
+        left: -0.25rem;
+        top: 0;
+        width: 2pt;
+        height: 2pt;
+        color: var(--ink);
+      }
+
+      .content p:last-child,
+      .content li:last-child {
+        margin-bottom: 0;
+      }
+
+      .body__bottom {
+        height: 5.40rem;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        height: 5.12rem;
+      }
+
+      .grid__item {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .grid__item--big {
+        grid-column: span 2;
+        grid-row: span 2;
+      }
+
+      .grid-item--left {
+        border-radius: 0 0 0 100%;
+      }
+
+      .grid__item--right {
+        border-radius: 0 0 100% 0;
+      }
+
+      .u-grid-col-1-to-2 {
+        grid-column: 1 / 2;
+      }
+
+      .u-grid-col-2-to-3 {
+        grid-column: 2 / 3;
+      }
+
+      .u-grid-col-3-to-4 {
+        grid-column: 3 / 4;
+      }
+
+      .u-grid-col-4-to-6 {
+        grid-column: 4 / 6;
+      }
+
+      .grid-item--cyan {
+        background-color: var(--cyan);
+      }
+
+      .grid-item--gold {
+        background-color: var(--gold);
+      }
+
+      .grid-item--purple {
+        background-color: var(--purple);
+      }
+
+      .grid-item--red {
+        background-color: var(--red);
+      }
+
+      .grid-item--yellow {
+        background-color: var(--yellow);
+      }
+
+      .footer {
+        position: relative;
+        display: flex;
+        margin-left: 0.14rem;
+        height: 0.65rem;
+      }
+
+      .website {
+        width: 7.5rem;
+        font-size: 0.55rem;
+        letter-spacing: 0.3pt;
+      }
+
+      .export {
+        position: absolute;
+        right: 0 ;
+        bottom: 0;
+        font-size: 0.19rem;
+        text-transform: uppercase;
+      }
+
+
+      /* ANY OTHER STYLES THAT NEED MUSTACHE.JS CAPABILITIES */
+    </style>
+  </head>
+  <body style="background: white" class="u-placeholder-{{ placeholder-toggle-new }}{{^placeholder-toggle-new}}hide{{/placeholder-toggle-new}}
+                                         backgroundColor--{{{DU-background--p}}}{{^DU-background--p}}heather{{/DU-background--p}}
+                                         layout--{{DU-column-number--p}}{{^DU-column-number--p}}2-column{{/DU-column-number--p}}
+                                         " data-crop="{{show-crop}}">
+    <div class="placeholderMaster" data-opacity="{{ placeholder-opacity }}">
+      <div class="placeholderMaster__item" data-bg="{{ placeholder-image-1 }}"></div>
+    </div><!-- end placeholderMaster -->
+    <div class="page">
+
+      <div class="bleed">
+
+        <div class="container fit">
+
+          <div class="header">
+            <div class="column column--left">
+              <img src="{{{account.logos.primary}}}" class="logo" />
+              {{#team.lock-up-name}}<div class="info" data-max-line="2">{{{team.lock-up-name}}}</div>{{/team.lock-up-name}}<!-- info -->
+            </div> <!-- column -->
+            <div class="column">
+              <img src="https://files.outfit.io/media_library_items/91821/strapline.png" class="strapline" /> <!-- strapline -->
+            </div> <!-- column -->
+          </div> <!-- header -->
+          <div class="body">
+            <div class="body__top">
+              {{#DU_heading-1--p}}
+              <div class="heading heading-1" data-max-line="{{#DU_heading-2--p}}2{{/DU_heading-2--p}}{{^DU_heading-2--p}}3{{/DU_heading-2--p}}">{{{DU_heading-1--p}}}</div><!--heading-->
+              {{/DU_heading-1--p}}
+              {{#DU_heading-2--p}}
+              <div class="subheading" data-max-line="3">{{{DU_heading-2--p}}}</div><!--subheading-->
+              {{/DU_heading-2--p}}
+              <div class="content__wrapper">
+                <div data-max-height="dynamic">
+                  <div class="content">{{{DU_content--p}}}</div><!--content-->
+                </div><!-- dynamic -->
+              </div><!-- end content__wrapper -->
+            </div><!--body__top-->
+            <div class="body__bottom">
+              <div class="grid">
+                <div class="grid__item u-grid-col-2-to-3"><div class="reposition-fix">{{{DU_image-1--p}}}</div></div><!--grid__item-->
+                <div class="grid__item grid__item--big grid__item--right u-grid-col-4-to-6"><div class="reposition-fix">{{{DU_image-2--p}}}</div></div><!--grid__item-->
+                <div class="grid__item grid-item--left u-grid-col-1-to-2 grid-item--{{{DU_shape-1--p}}}"></div><!--grid__item-->
+                <div class="grid__item u-grid-col-3-to-4 grid-item--{{{DU_shape-2--dds}}}"></div><!--grid__item-->
+              </div><!--grid--primary--> 
+            </div><!--body___bottom-->
+          </div><!--body-->
+          <div class="footer">
+            <div class="website"><div class="textFit">durham.ac.uk{{#DU_website--p}}/{{{DU_website--p}}}{{/DU_website--p}}</div></div><!--website-->
+            <div class="export">{{#metadata}}OUT_{{export_id}}{{/metadata}}</div>
+          </div><!--footer-->
+
+        </div><!--container fit-->
+
+      </div><!--bleed-->
+
+    </div><!--page-->
+
+
+    <script>
+      window.showCrop = {{show-crop}}{{^show-crop}}true{{/show-crop}};
+    </script>
+    <script src="js/main.js"></script>   
+    <script src="js/prefixfree.js"></script>
+    <script src="js/placeholder-controller.js"></script>
+    <script src="js/char-limit.js"></script>
+    <script src="js/check-export-mode.js"></script>
+    <script src="js/max-line-check.js"></script>
+    <script src="js/max-height-check.js"></script>
+    <script src="js/hide-empty-titles.js"></script>
+    <script src="https://outfit-assets-production.s3-accelerate.amazonaws.com/scripts/textfit.0.0.4.min.js" type="text/javascript"></script>
+    <script>
+
+      // Tracking text changes and firing text restriction functions (mutationObserver)
+      const overflowObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          maxLineCheck();
+          maxHeightCheck();
+          charLimit();
+        });
+      });
+
+      overflowObserver.observe(document.body, {
+        attributes: false,
+        characterData: true,
+        childList: true,
+        subtree: true,
+        attributeOldValue: false,
+        characterDataOldValue: true
+      });
+
+      // Calling text size restriction functions once the fonts are loaded
+      document.fonts.ready.then(() => {
+        maxLineCheck();
+        maxHeightCheck();
+      });
+
+      placeholderController();
+      checkCrop();
+      checkExport();
+      charLimit();
+
+      // TextFit function decreases the font of the selected element to make it fit in single line (if needed, uncomment the code bellow)
+      TextFit.fit({
+        selector: '.textFit'
+      });
+
+      function detectSystem() {
+        const isMac = window.navigator.appVersion.includes('Mac');
+        if ( isMac ) document.body.classList.add('is-mac');
+      }
+      
+
+      detectSystem();
+
+    </script>
+
+
+  </body>
+</html>
