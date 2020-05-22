@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html data-sign="OSM">
+  <head>
+    <title>Template title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="css/minireset.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/placeholder-controller.css">
+
+    <style>
+      @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i');
+
+      :root {
+        --ink: {{{account.colors.type-ink}}};
+        --white: {{{account.colors.white}}};
+
+        --font-primary: 'Open Sans', sans-serif;
+
+        --purple: {{{account.colors.primary-purple}}};
+        --yellow: {{{account.colors.primary-yellow}}};
+        --cyan: {{{account.colors.primary-cyan}}};
+        --red: {{{account.colors.primary-red}}};
+        --gold: {{{account.colors.primary-gold}}};
+
+        --heather: {{{account.colors.secondary-heather}}};
+        --stone: {{{account.colors.secondary-stone}}};
+        --sky: {{{account.colors.secondary-sky}}};
+        --cedar: {{{account.colors.secondary-cedar}}};
+        --concrete: {{{account.colors.secondary-concrete}}};
+      }
+
+      body {
+        font-family: var(--font-primary);
+        font-size: 11pt;
+        color: var(--ink);
+        word-break: break-word;
+      }
+
+      /* Helper class for fixing Reposition tool bug */
+      .reposition-fix {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;        
+      }   
+
+      .fit {
+        display: flex;
+      }
+
+      .body {
+        position: relative;
+        display: flex;
+        flex: 1;
+      }
+
+      .bodyImages {
+        width: 872pt;
+        display: flex;
+      }
+
+      .grid {
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(4, 1fr);
+        flex: 1;
+        display: none;
+      }
+
+      .display-screen-1 .grid--primary {
+        display: grid;
+      }
+
+      .display-screen-2 .grid--secondary {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(4, 1fr);
+      }
+
+      .display-screen-2 .bodyImages {
+        order: 1;
+        width: 670pt;
+      }
+
+      .display-screen-2 .bodyText {
+        padding: 65pt 79.1pt 44pt 79.1pt;
+      }
+
+      .display-screen-2 .heading {
+        margin-bottom: 43pt;
+      }
+
+      .grid__item {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .grid__item--big {
+        grid-column: span 2;
+        grid-row: span 2;
+      }
+
+      .grid--inner {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto;
+      }
+
+      .grid-element--left {
+        border-radius: 0 0 0 100%;
+      }
+
+      .grid-element--right {
+        border-radius: 0 0 100% 0;
+      }
+
+      .u-grid-col-3-to-4 {
+        grid-column: 3 / 4;
+      }
+
+      .u-grid-col-2-to-3 {
+        grid-column: 2 / 3;
+      }
+
+      .u-grid-col-2-to-4 {
+        grid-column: 2 / 4;
+      }
+
+      .bodyText {
+        flex: 1;
+        padding: 57pt 38.1pt 44pt 38.1pt;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .heading {
+        margin-bottom: 57pt;
+        font-size: 57.2pt;
+        font-weight: 700;
+        letter-spacing: 0.1pt;
+        line-height: 1.2em;
+      }
+
+      .content {
+        font-size: 43.9pt;
+        line-height: 1.2em;
+      }
+
+      .contact {
+        font-size: 43.8pt;
+        max-height: 3.2em;
+      }
+
+      .contact__item {
+        line-height: 1.57em;
+      }
+
+
+      /*************** BackgroundColour *****************/
+
+      .backgroundColor--white .fit {
+        background-color: var(--white);
+      }
+
+      .backgroundColor--heather .fit {
+        background-color: var(--heather);
+      }
+
+      .backgroundColor--stone .fit {
+        background-color: var(--stone);
+      }
+
+      .backgroundColor--sky .fit {
+        background-color: var(--sky);
+      }
+
+      .backgroundColor--cedar .fit {
+        background-color: var(--cedar);
+      }
+
+      .backgroundColor--concrete .fit {
+        background-color: var(--concrete);
+      }
+
+      /*********** Heading ***********/
+
+      .heading--ink {
+        color: var(--ink);
+      }
+
+      .heading--purple {
+        color: var(--purple);
+      }
+
+      .heading--yellow {
+        color: var(--yellow);
+      }
+
+      .heading--cyan {
+        color: var(--cyan);
+      }
+
+      .heading--red {
+        color: var(--red);
+      }
+
+      .heading--gold {
+        color: var(--gold);
+      }
+
+      .heading--white {
+        color: var(--white);
+      }
+
+
+      /************** Grid Element *****************/
+
+      .grid-element--purple {
+        background-color: var(--purple);
+      }
+
+      .grid-element--yellow {
+        background-color: var(--yellow);
+      }
+
+      .grid-element--cyan {
+        background-color: var(--cyan);
+      }
+
+      .grid-element--red {
+        background-color: var(--red);
+      }
+
+      .grid-element--gold {
+        background-color: var(--gold);
+      }
+
+      .u-margin-bottom {
+        margin-bottom: 8.2pt;
+      }
+
+      .exportNumber { 
+        position: absolute;
+        bottom: 1rem;
+        right: 0;
+        transform: rotate(-90deg);
+        font-size: 0.14rem;
+      }
+
+      .display-screen-2 .exportNumber {
+        right: auto;
+        left: 0;
+      }
+
+      /* ANY OTHER STYLES THAT NEED MUSTACHE.JS CAPABILITIES */
+    </style>
+  </head>
+  <body style="background: white" class="u-placeholder-{{ placeholder-toggle-new }}{{^placeholder-toggle-new}}hide{{/placeholder-toggle-new}} backgroundColor--{{{DU_page-background-colour--dds}}} {{{DU_variation--dds}}}{{^DU_variation--dds}}display-screen-1{{/DU_variation--dds}}" data-crop="{{show-crop}}">
+    <div class="placeholderMaster" data-opacity="{{ placeholder-opacity }}">
+      {{#placeholder-image-1}}
+      <div class="placeholderMaster__item" data-bg="{{ placeholder-image-1 }}"></div>
+      {{/placeholder-image-1}}
+    </div><!-- end placeholderMaster -->
+    <div class="page">
+
+      <div class="bleed">
+
+        <div class="container fit">
+
+          <div class="body">
+            <div class="bodyImages">
+              <div class="grid grid--primary">
+                <div class="grid__item grid__item--big grid-element--right grid-element--{{{DU_tapestry-grid-1-element-1-colour--dds}}}"></div><!--grid__item-->
+                <div class="grid__item grid__item--big"><div class="reposition-fix">{{{DU_tapestry-grid-1-image-1--dds}}}</div></div><!--grid__item-->
+                <div class="grid__item"><div class="reposition-fix">{{{DU_tapestry-grid-1-image-2--dds}}}</div></div><!--grid__item-->
+                <div class="grid__item grid-element--right grid-element--big--small grid-element--{{{DU_tapestry-grid-1-element-2-colour--dds}}}"></div><!--grid__item-->
+                <div class="grid__item grid__item--big grid-element--left grid-element--big u-margin-bottom grid-element--{{{DU_tapestry-grid-1-element-3-colour--dds}}}"></div><!--grid__item-->
+                <div class="grid__item u-grid-col-2-to-3"><div class="reposition-fix">{{{DU_tapestry-grid-1-image-3--dds}}}</div> <!--reposition-fix--> </div> <!--grid__item-->
+              </div><!--grid--primary--> 
+              <div class="grid grid--secondary">
+                <div class="grid__item grid-element--right grid__item--big"><div class="reposition-fix">{{{DU_tapestry-grid-2-image-1--dds}}}</div></div><!--grid__item-->
+                <div class="grid grid--inner">
+                  <div class="grid__item grid-element--{{{DU_tapestry-grid-2-element-1-colour--dds}}}"></div><!--grid__item-->
+                  <div class="grid__item grid-element--{{{DU_tapestry-grid-2-element-1-colour--dds}}}"></div><!--grid__item-->
+                  <div class="grid__item grid-element--{{{DU_tapestry-grid-2-element-1-colour--dds}}}"></div><!--grid__item-->
+                  <div class="grid__item grid-element--{{{DU_tapestry-grid-2-element-1-colour--dds}}}"></div><!--grid__item-->
+                </div><!--grid--inner--> 
+                <div class="grid__item grid-element--left"><div class="reposition-fix">{{{DU_tapestry-grid-2-image-2--dds}}}</div></div><!--grid__item-->
+                <div class="grid__item"><div class="reposition-fix">{{{DU_tapestry-grid-2-image-3--dds}}}</div></div><!--grid__item-->
+                <div class="grid grid--inner u-grid-col-3-to-4">
+                  <div class="grid__item grid-element--{{{DU_tapestry-grid-2-element-2-colour--dds}}}"></div><!--grid__item-->
+                  <div class="grid__item grid-element--{{{DU_tapestry-grid-2-element-2-colour--dds}}}"></div><!--grid__item-->
+                  <div class="grid__item grid-element--{{{DU_tapestry-grid-2-element-2-colour--dds}}}"></div><!--grid__item-->
+                  <div class="grid__item grid-element--{{{DU_tapestry-grid-2-element-2-colour--dds}}}"></div><!--grid__item-->
+                </div><!--grid--inner--> 
+                <div class="grid__item u-grid-col-2-to-3 grid-element--left grid-element--big--small u-margin-bottom grid-element--{{{DU_tapestry-grid-2-element-3-colour--dds}}}"></div><!--grid__item-->
+                <div class="grid__item grid-element--right u-margin-bottom"><div class="reposition-fix">{{{DU_tapestry-grid-2-image-4--dds}}}</div></div><!--grid__item-->
+              </div><!--grid--secondary--> 
+            </div><!--bodyImages--> 
+            <div class="bodyText">
+              <div class="bodyText__top">
+                <div class="heading heading--{{{DU_heading-color-dds}}}" data-max-line="3">{{{DU_heading--dds}}}</div><!--heading-->
+                <div class="content" data-max-line="6">{{{DU_body-copy--dds}}}</div><!--content-->
+              </div><!--bodyText__top-->
+              <div class="contact"><div class="contact__item textFit-vertical">{{{DU_contact-info-copy--dds}}}</div></div><!--contact-->
+            </div><!--bodyText-->
+            <div class="exportNumber"> {{#metadata}}OUT_{{export_id}}{{/metadata}}  </div> <!-- exportNumber -->
+          </div> <!--body-->
+
+        </div><!--container fit-->
+
+      </div><!--bleed-->
+
+    </div><!--page-->
+
+
+    <script>
+      window.showCrop = {{show-crop}}{{^show-crop}}true{{/show-crop}};
+    </script>
+    <script src="js/main.js"></script>   
+    <script src="js/prefixfree.js"></script>
+    <script src="js/placeholder-controller.js"></script>
+    <script src="js/char-limit.js"></script>
+    <script src="js/check-export-mode.js"></script>
+    <script src="js/max-line-check.js"></script>
+    <script src="js/max-height-check.js"></script>
+    <script src="https://outfit-assets-production.s3-accelerate.amazonaws.com/scripts/textfit.0.0.4.min.js" type="text/javascript"></script>
+    <script>
+
+      // Tracking text changes and firing text restriction functions (mutationObserver)
+      const overflowObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          maxLineCheck();
+          maxHeightCheck();
+          charLimit();
+        });
+      });
+
+      overflowObserver.observe(document.body, {
+        attributes: false,
+        characterData: true,
+        childList: true,
+        subtree: true,
+        attributeOldValue: false,
+        characterDataOldValue: true
+      });
+
+      // Calling text size restriction functions once the fonts are loaded
+      document.fonts.ready.then(() => {
+        maxLineCheck();
+        maxHeightCheck();
+      });
+
+      placeholderController();
+      checkCrop();
+      checkExport();
+      charLimit();
+
+      // TextFit function decreases the font of the selected element to make it fit in single line (if needed, uncomment the code bellow)
+      TextFit.fit({
+        selector: '.textFit'
+      });
+
+      TextFit.fit({
+        selector: '.textFit-vertical',
+        fitMode: 'vertical',
+        alignItems: 'flex-start'
+      });
+
+      function detectSystem() {
+        const isMac = window.navigator.appVersion.includes('Mac');
+        if ( isMac ) document.body.classList.add('is-mac');
+      }
+
+      detectSystem();      
+
+    </script>
+
+
+  </body>
+</html>
