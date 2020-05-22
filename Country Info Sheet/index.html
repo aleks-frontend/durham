@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+
+<html data-sign="OSM" async>
+  <head>
+    <title>Template title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="css/minireset.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/placeholder-controller.css">
+
+    <style>
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/Gotham/stylesheet.css');
+      @import url('https://fonts.googleapis.com/css?family=Noto+Serif&display=swap');
+
+      :root {
+        --ink: {{{account.colors.type-ink}}};
+        --purple: {{{account.colors.primary-purple}}}; 
+
+        --sky: {{{account.colors.secondary-sky}}};
+        --black: {{{account.colors.type-black}}};
+        --white: {{{account.colors.white}}};
+
+        --gold: {{{account.colors.primary-gold}}};
+        --cyan: {{{account.colors.primary-cyan}}};
+        --yellow: {{{account.colors.primary-yellow}}};
+        --red: {{{account.colors.primary-red}}};
+      }
+
+      .theme--gold.colorBox,
+      .theme--gold.colorBox li:before,
+      .theme--gold.studentQuote,
+      .theme--gold.studentQuote p,
+      .theme--gold.sutdentQuote li {
+        --dynamic-color: var(--gold);
+        color: var(--ink);
+      }
+
+      .theme--cyan.colorBox,
+      .theme--cyan.colorBox li:before,
+      .theme--cyan.studentQuote,
+      .theme--cyan.studentQuote p,
+      .theme--cyan.sutdentQuote li {
+        --dynamic-color: var(--cyan);
+        color: var(--ink);
+      }
+
+      .theme--yellow.colorBox,
+      .theme--yellow.colorBox li:before,
+      .theme--yellow.studentQuote,
+      .theme--yellow.colorBox .studentQuote p,
+      .theme--yellow.colorBox .sutdentQuote li {
+        --dynamic-color: var(--yellow);
+        color: var(--ink);
+      }
+
+      .theme--purple.colorBox,
+      .theme--purple.colorBox li:before,
+      .theme--purple.studentQuote,
+      .theme--purple.studentQuote p,
+      .theme--purple.sutdentQuote li {
+        --dynamic-color: var(--purple);
+        color: var(--white);
+      }
+
+      .theme--red.colorBox,
+      .theme--red.colorBox li:before,
+      .theme--red.studentQuote,
+      .theme--red.studentQuote p,
+      .theme--red.sutdentQuote li {
+        --dynamic-color: var(--red);
+        color: var(--white);
+      }
+      
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      ul {
+        position: relative;
+        padding-left: 0.15rem;
+      }
+      
+      li {
+        position: relative;
+      }
+      
+      li:before {
+        content: "•";
+        position: absolute;
+        left: -0.16rem;
+        top: 0;
+        width: 2pt;
+        height: 2pt;
+        color: var(--ink);
+      }
+
+      strong {
+        font-weight: 500;
+      }
+
+      html {
+        font-family: "Gotham";
+        font-size: 11pt;
+        color: var(--ink);
+        word-break: break-word;
+      }
+
+      .backgroundImage {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        overflow: hidden;
+      }
+
+      .backgroundImage div {
+        width: auto !important;
+        height: auto !important;
+        right: 0;
+        bottom: 0;
+      }      
+
+      /* Helper classes */
+      .u-hide { display: none; }
+
+      /* Helper class for fixing Reposition tool bug */
+      .reposition-fix {
+        position: absolute;
+        overflow: hidden;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;        
+      }
+
+      .reposition-fix div {
+        top: 0 !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+      }
+
+      .container {
+        padding: 1.10rem 1.12rem 1.1rem 1.12rem;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .header {
+        padding-bottom: 0.58rem;
+      }
+
+      .header__internal {
+        padding-bottom: 0.28rem;
+      }
+
+      .logo__container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 0.55rem;
+      }
+
+      .logo {
+        width: 2.69rem;
+        height: 1.12rem;
+        object-fit: contain;
+      }
+
+      .logo__strapline {
+        margin-top: 0.12rem;
+        font-family: 'Noto Serif';
+        font-size: 0.26rem;
+      }
+
+      .heading {    
+        padding-left: 0.72rem;
+        max-height: 1.7em;
+        font-size: 0.56rem;
+      }
+
+      .headingColor--ink.heading {
+        color: var(--ink);
+      }
+
+      .headingColor--purple.heading {
+        color: var(--purple);
+      }
+
+      .heading--internal {
+        padding-left: 0;
+        font-size: 0.21rem;
+      }
+
+      .subheading {
+        font-size: 0.33rem;
+        font-weight: 500;
+      }
+
+      .subheading--ink {
+        color: var(--ink);
+      }
+
+      .subheading--purple {
+        color: var(--purple);
+      }
+
+      .subheading--bordered {
+        padding-bottom: 0.21rem;
+        border-bottom: 1pt solid var(--ink);
+      }
+
+      .body {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+      }
+
+      .hero {
+        display: flex;
+        height: 4.43rem;
+        margin-bottom: 0.34rem;
+      }
+
+      .hero--alt {
+        height: 3.59rem;
+      }
+
+      .hero__image {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero__image--1 {
+        flex: 2;
+      }
+
+      .hero__image--2 {
+        flex: 1;
+      }
+
+      .featureImage {
+        position: relative;
+        height: 7.29rem;
+      }
+
+      .featureImage--alt {
+        height: 7.79rem;
+      }
+
+      .infoBlock__container {
+        display: flex;
+        margin-left: -0.22rem;
+        padding-top: 0.26rem;
+        padding-bottom: 0.3rem;
+      }
+
+      .infoBlock {
+        flex: 1;
+        margin-left: 0.22rem;
+        padding-top: 0.13rem;
+        border-top: 0.15rem solid var(--purple);
+      }
+
+      .infoBlock h1 {
+        margin-bottom: 0.06rem;
+        font-size: 0.66rem;
+        line-height: 1em;
+        font-weight: 600;
+      }
+
+      .infoBlock p,
+      .infoBlock li {
+        font-size: 0.187rem;
+        line-height: 1.3em;
+      }
+
+      .infoBlock p + h1:last-child {
+        margin-bottom: 0;
+      }
+
+      .requirements__table {
+        padding-bottom: 0.58rem;
+        padding-top: 0.35rem;
+      }
+
+      .requirements__row {
+        display: flex;
+        height: 1.73rem;
+        border-bottom: 1pt solid var(--black);
+      }
+
+      .requirements__row--alt {
+        height: 1.23rem;
+      }
+
+      .requirements__row:last-child {
+        border-bottom: none;
+      }
+
+      .requirements__row:nth-child(odd) {
+        background-color: var(--sky);
+      }
+
+      .requirements__cell {
+        width: 2.57rem;
+        padding: 0.18rem 0.10rem;
+      }
+      
+      .requirements__cell ul {
+        padding-left: 0.2rem;
+      }
+
+      .requirements__cell p,
+      .requirements__cell li {
+        font-size: 0.19rem;
+        line-height: 1.2em;
+      }
+
+      .requirements__cell--primary {
+        width: 2.85rem;
+      }
+
+      .requirements__cell--big {
+        border-left: 1pt solid var(--black);
+        flex: 1;
+      }
+
+      .infoGrid {
+        display: grid;
+        width: 100%;
+        grid-template-columns: 2fr 1fr;
+        grid-gap: 0 0.14rem;
+      }
+
+      .infoGrid__image {
+        position: relative;
+        position: relative;
+        width: 100%;
+        height: 3.22rem;
+        margin-left: 0.12rem;
+      }
+
+      .blurb {
+        grid-column: 1 / 2;
+        padding-top: 0.09rem;
+      }
+
+      .blurb p,
+      .blurb li {
+        font-size: 0.187rem;
+        line-height: 1.4em;
+        margin-bottom: 0.089rem;
+      }
+
+      .blurb p:last-child {
+        margin-bottom: 0;
+      }
+
+      .colorBox {
+        padding: 0.2rem 0.33rem 0.19rem 0.33rem;
+        height: 3.34rem;
+        background-color: var(--dynamic-color);
+      }
+
+      .colorBox--alt {
+        height: 3.74rem;
+      }
+
+      .colorBox--primary {
+        max-height: 3.88rem;
+        height: 100%;
+        padding-top: 0.33rem;
+      }
+
+      .colorBox__heading {
+        /*margin-bottom: 0.16rem;*/
+        padding-bottom: 0.12rem;
+        font-size: 0.33rem;
+        font-weight: 500;
+        border-bottom: 1.5pt solid var(--white);
+      }
+
+      .theme--gold .colorBox__heading,
+      .theme--cyan .colorBox__heading,
+      .theme--yellow .colorBox__heading {
+        border-color: var(--ink);
+      }
+      
+      .colorBox__text {
+        margin-top: 0.28rem;
+      }
+
+      .colorBox__text p,
+      .colorBox__text li {
+        margin-bottom: 0.10rem;
+        font-size: 0.19rem;
+        line-height: 1.25em;
+      }
+
+      .colorBox__text p:last-child {
+        margin-bottom: 0;
+      }
+
+      .colorBox__text--primary strong {
+        font-size: 0.66rem;
+      }
+
+      .colorBox__heading--primary {
+        padding-bottom: 4pt;
+      }
+
+      .colorBox__text--primary p {
+        margin-bottom: 0.28rem;
+        font-size: 0.19rem;
+        letter-spacing: 0.1pt;
+      }
+
+      .departments {
+        position: relative;
+        width: 65.8%;
+      }
+
+      .departments__heading {
+        margin-bottom: 0.19rem;
+        padding-bottom: 0.59rem;
+        font-size: 0.33rem;
+        font-weight: 500;
+        line-height: 1.2em;
+        border-bottom: 1pt solid var(--ink);
+      }
+
+      .departments__cols {
+        column-count: 2;
+        column-gap: 0.27rem;
+        font-size: 0.19rem;
+      }
+
+      .departments__cols ul { 
+        padding-left: 0.16rem;
+      }
+
+      .departments__cols li {
+        position: relative;
+        margin-bottom: 1.5pt;
+        font-size: 0.195rem;
+        line-height: 1.2em;
+      }
+
+      .departments__cols li:last-child {
+        margin-bottom: 0;
+      }
+
+      .departments__cols li:before {
+        content: "•";
+        position: absolute;
+        left: -0.16rem;
+        top: 0;
+        width: 2pt;
+        height: 2pt;
+        color: var(--ink);
+      }
+
+      .departments__map {
+        position: absolute;
+        right: -4.02rem;
+        bottom: -0.38rem;
+        width: 5.40rem;
+        height: 5.75rem;
+        object-fit: contain;
+      }
+
+      .contentCol__container {
+        margin-top: 0.58rem;
+        display: flex;
+      }
+
+      .contentCol--main {
+        flex: 1;
+        margin-right: 0.26rem;
+      }
+
+      .contact {
+        column-count: 2;
+        column-gap: 0.28rem;
+      }
+
+      .contact__wrapper {
+        margin-bottom: 0.82rem;
+        padding: 0.21rem 0rem 0.1rem 0rem;
+        margin-bottom: 0.19rem;
+        height: 4.13rem;
+        border-bottom: 1pt solid var(--ink);        
+      }
+
+      .contact__image {
+        position: relative;
+        width: 1.155rem;
+        height: 1.155rem;
+      }
+
+      .contact p,
+      .contact li {
+        font-size: 0.19rem;
+        line-height: 1.55em;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 0.21rem 0.28rem;
+      }
+
+      .social {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .social__icon {
+        width: 0.46rem;
+        height: 0.45rem;
+        object-fit: contain;
+      }
+
+      .social__text {
+        margin-top: 0.12rem;
+        font-size: 0.184rem;
+        line-height: 1.35em;
+      }
+      
+      .tef {
+        position: relative;
+        width: 2.03rem;
+        height: 0.72rem;
+      }
+
+      .disclaimer {
+        font-size: 0.19rem;
+      }
+
+      .contentCol--side {
+        width: 3.85rem;
+        max-height: 6.89rem;
+      }
+
+      .studentQuote {
+        position: relative;
+        height: 100%;
+        margin-top: 0.61rem;
+        padding: 0.21rem 0.12rem 0.12rem 0.21rem;
+        background-color: var(--dynamic-color);
+      }
+      
+      .studentQuote ul {
+        padding-left: 0.2rem;
+      }
+
+      .studentQuote p,
+      .studentQuote li {
+        font-size: 0.19rem;
+        letter-spacing: 0.4pt;
+        line-height: 1.3em;
+        margin-bottom: 0.163rem;
+      }     
+
+      .studentQuote p:last-child {
+        margin-bottom: 0;
+      }
+
+      .studentQuote__image {
+        position: relative;
+        width: 1.35rem;
+        height: 1.35rem;
+        margin-bottom: 0.09rem;
+        overflow: hidden;
+      }
+
+      .footer {
+        display: flex;
+      }
+
+      .disclaimer {
+        font-size: 0.14rem;
+        flex: 1;
+        letter-spacing: -0.1pt;
+        margin-right: 0.26rem;
+      }
+
+      .cricos {
+        width: 3.85rem;
+        font-size: 0.19rem;
+        text-transform: uppercase;
+        text-align: right;
+      }
+
+      .js-heading-src { display: none; }
+
+      .u-grid-col-1-2 {
+        grid-column: 1 / 2;
+      }
+
+      .u-grid-col-2-3 { grid-column: 2 / 3; }
+
+      .u-grid-row-1-3 { grid-row: 1 / 3; }
+
+      .u-grid-row-2-3 { grid-row: 2 / 3; }
+
+      .u-mb-07 {
+        margin-bottom: 0.7rem;
+      }
+
+      .u-pb-075 {
+        padding-bottom: 0.75rem;
+      }
+
+      .u-ml-014 {
+        margin-left: 0.14rem;
+      }
+
+      .u-mt-016 {
+        margin-top: 0.16rem;
+      }
+
+
+
+      /* ANY OTHER STYLES THAT NEED MUSTACHE.JS CAPABILITIES */
+    </style>
+  </head>
+  <body style="background: white" class="u-placeholder-{{ placeholder-toggle-new }}{{^placeholder-toggle-new}}hide{{/placeholder-toggle-new}}" data-crop="{{show-crop}}">
+    <div class="placeholderMaster" data-opacity="{{ placeholder-opacity }}">
+      <div class="placeholderMaster__item" data-bg="{{ placeholder-image-1 }}"></div>
+      <div class="placeholderMaster__item" data-bg="{{ placeholder-image-2 }}"></div>
+      <div class="placeholderMaster__item" data-bg="{{ placeholder-image-3 }}"></div>
+      <div class="placeholderMaster__item" data-bg="{{ placeholder-image-4 }}"></div>
+    </div><!-- end placeholderMaster -->
+    <div class="js-heading-src">{{{DU_heading-test2--cis}}}</div>
+    <!--front-page-->
+    {{#collection.DU_front-page--cis}}
+    <div class="page">
+
+      <div class="bleed">
+
+        <div class="container fit">
+
+          <div class="header">
+            <div class="logo__container">
+              <img class="logo" src="{{{account.logos.primary}}}"><!--logo-->
+              <div class="logo__strapline">{{{account.snippets.strapline}}}</div><!--logo__strapline-->
+            </div><!--logo__container-->
+            <div class="heading headingColor--{{{DU_heading-color--cis}}}{{^DU_heading-color--cis}}ink{{/DU_heading-color--cis}}">
+              <span class="textFit--vertical js-heading-target" style="line-height: 1.2em;"></span>
+            </div><!--heading-->
+          </div><!--header-->
+          <div class="body">
+            <div class="featureImage"><div class="reposition-fix">{{{DU_feature-image--cis}}}</div></div><!--featureImage-->
+            <div class="infoBlock__container">
+              <div class="infoBlock" data-max-height="1.95" data-max-height-unit="rem">{{{DU_information-block-1--cis}}}</div><!--infoBlock-->
+              <div class="infoBlock" data-max-height="1.95" data-max-height-unit="rem">{{{DU_information-block-2--cis}}}</div><!--infoBlock-->
+              <div class="infoBlock" data-max-height="1.95" data-max-height-unit="rem">{{{DU_information-block-3--cis}}}</div><!--infoBlock-->
+              <div class="infoBlock" data-max-height="1.95" data-max-height-unit="rem">{{{DU_information-block-4--cis}}}</div><!--infoBlock-->
+            </div><!--infoBlock__container-->
+            <div class="departments">
+              <div class="departments__heading" data-max-height="0.65" data-max-height-unit="rem" style="max-height: 0.65rem;">Departments</div>
+              <div data-max-height="4.6" data-max-height-unit="rem">
+                <div class="departments__cols">
+                  <ul>
+                    <li>Accounting and Finance</li>
+                    <li>Anthropology</li>
+                    <li>Archaeology</li>
+                    <li>Biosciences</li>
+                    <li>Business, Marketing and<br>Management</li>
+                    <li>Chemistry</li>
+                    <li>Classics and Ancient History</li>
+                    <li>Combined Honours in Social Science</li>
+                    <li>Computer Science</li>
+                    <li>Criminology</li>
+                    <li>Economics</li>
+                    <li>Education and Teaching</li>
+                    <li>Engineering</li>
+                    <li>English Studies</li>
+                    <li>Geography</li>
+                    <li>Geology and Earth Sciences</li>
+                    <li>History</li>
+                    <li>Languages and Cultures</li>
+                    <li>Law</li>
+                    <li>Liberal Arts</li>
+                    <li>Mathematics</li>
+                    <li>Music</li>
+                    <li>Natural Sciences</li>
+                    <li>Philosophy</li>
+                    <li>Philosophy, Politics and<br>Economics (PPE)</li>
+                    <li>Physics</li>
+                    <li>Politics and International<br>Relations</li>
+                    <li>Psychology</li>
+                    <li>Sociology</li>
+                    <li>Sport &amp; Exercise Sciences</li>
+                    <li>Theology and Religion</li>
+                  </ul>
+                </div><!--departments__cols-->
+              </div><!--data-max-height-->
+              <img class="departments__map" src="https://files.outfit.io/media_library_items/98667/Map-Image.png">
+            </div><!--departments-->
+          </div><!--body-->
+
+        </div><!--container fit-->
+
+      </div><!--bleed-->
+
+    </div><!--page-->
+    {{/collection.DU_front-page--cis}}
+    <!--front-page-->
+
+
+
+
+    <!--entry-requirements-page-->
+    {{#collection.DU_entry-requirements-page--cis}}
+    <div class="page">
+
+      <div class="bleed">
+
+        <div class="container fit">
+
+          <div class="header header__internal">
+            <div class="heading heading--internal js-heading-target"></div><!--heading-->
+          </div><!--header-->
+          <div class="body">
+            <div class="hero">
+              {{#DU_image-1--cis}}
+              <div class="hero__image hero__image--1">{{{DU_image-1--cis}}}</div><!--hero__image--1-->
+              {{/DU_image-1--cis}}
+              {{#DU_image-2--cis}}
+              <div class="hero__image hero__image--2">{{{DU_image-2--cis}}}</div><!--hero__image--2-->
+              {{/DU_image-2--cis}}
+            </div><!--hero-->
+            {{#DU_table-heading--cis}}
+            <div class="subheading subheading--{{{DU_table-heading-color--cis}}}{{^DU_table-heading-color--cis}}ink{{/DU_table-heading-color--cis}}" data-max-line="1">{{{DU_table-heading--cis}}}</div><!--subheading-->
+            {{/DU_table-heading--cis}}
+            <div class="requirements__table">
+              <div class="requirements__row" data-max-height="1.75" data-max-height-unit="rem">
+                <div class="requirements__cell">{{{DU_type-column-1--cis}}}</div><!--requirements__cell-->
+                <div class="requirements__cell requirements__cell--big">{{{DU_requirements-column-1--cis}}}</div><!--requirements__cell-->
+              </div><!--requirements__row-->
+               <div class="requirements__row" data-max-height="1.75" data-max-height-unit="rem">
+                <div class="requirements__cell">{{{DU_type-column-2--cis}}}</div><!--requirements__cell-->
+                <div class="requirements__cell requirements__cell--big">{{{DU_requirements-column-2--cis}}}</div><!--requirements__cell-->
+              </div><!--requirements__row-->
+               <div class="requirements__row" data-max-height="1.75" data-max-height-unit="rem">
+                <div class="requirements__cell">{{{DU_type-column-3--cis}}}</div><!--requirements__cell-->
+                <div class="requirements__cell requirements__cell--big">{{{DU_requirements-column-3--cis}}}</div><!--requirements__cell-->
+              </div><!--requirements__row-->
+               <div class="requirements__row" data-max-height="1.75" data-max-height-unit="rem">
+                <div class="requirements__cell">{{{DU_type-column-4--cis}}}</div><!--requirements__cell-->
+                <div class="requirements__cell requirements__cell--big">{{{DU_requirements-column-4--cis}}}</div><!--requirements__cell-->
+              </div><!--requirements__row-->
+            </div><!--requirements__table-->
+            <div class="infoGrid">
+              <div class="infoGrid__item">
+                {{#DU_heading-2--cis}}
+                <div class="subheading subheading--bordered" data-max-height="1.05" data-max-height-unit="rem">{{{DU_heading-2--cis}}}</div><!--subheading-->
+                {{/DU_heading-2--cis}}
+              </div><!--infoGrid__item-->
+              <div class="infoGrid__item u-grid-col-1-2">
+                <div class="blurb" data-max-height="3.59" data-max-height-unit="rem">{{{DU_blurb--cis}}}</div><!--blurb-->
+              </div><!--infoGrid__item-->
+              <div class="infoGrid__item u-grid-col-2-3 u-grid-row-2-3">
+                {{#collection.DU_how-to--cis}}
+                <div class="colorBox u-ml-014 theme--{{{DU_theme-color--cis}}}{{^DU_theme-color--cis}}purple{{/DU_theme-color--cis}}">
+                  {{#DU_heading--cis}}
+                  <div class="colorBox__heading" data-max-height="0.61" data-max-height-unit="rem">{{{DU_heading--cis}}}</div><!--colorBox__heading-->
+                  {{/DU_heading--cis}}
+                  <div class="colorBox__text" data-max-height="2.28" data-max-height-unit="rem">{{{DU_text-content--cis}}}</div><!--colorBox__text-->
+                </div><!--colorBox-->
+                {{/collection.DU_how-to--cis}}
+              </div><!--infoGrid__item-->
+            </div><!--infoGrid-->
+          </div><!--body-->
+
+        </div><!--container fit-->
+
+      </div><!--bleed-->
+
+    </div><!--page-->
+    {{/collection.DU_entry-requirements-page--cis}}
+    <!--entry-requirements-page-->
+
+
+
+    <!--fees-and-funding-page-->
+    {{#collection.DU_fees-and-funding-page--cis}}
+    <div class="page">
+
+      <div class="bleed">
+
+        <div class="container fit">
+
+          <div class="header header__internal">
+            <div class="heading heading--internal js-heading-target">{{^DU_heading-test2--cis}}Guide to students from India{{/DU_heading-test2--cis}}</div><!--heading-->
+          </div><!--header-->
+          <div class="body">
+            <div class="hero hero--alt">
+              {{#DU_image-1--cis}}
+              <div class="hero__image hero__image--1"><div class="reposition-fix">{{{DU_image-1--cis}}}</div></div><!--hero__image--1-->
+              {{/DU_image-1--cis}}
+              {{#DU_image-2--cis}}
+              <div class="hero__image hero__image--2"><div class="reposition-fix">{{{DU_image-2--cis}}}</div></div><!--hero__image--2-->
+              {{/DU_image-2--cis}}
+            </div><!--hero-->
+            {{#DU_table-heading--cis}}
+            <div class="subheading subheading--{{{DU_table-heading-color--cis}}}{{^DU_table-heading-color--cis}}ink{{/DU_table-heading-color--cis}}" data-max-line="1">{{{DU_table-heading--cis}}}</div><!--subheading-->
+            {{/DU_table-heading--cis}}
+            <div class="requirements__table u-pb-075">
+              <div class="requirements__row requirements__row--alt" data-max-height="1.25" data-max-height-unit="rem">
+                <div class="requirements__cell requirements__cell--primary">{{{DU_type-column-1--cis}}}</div><!--requirements__cell-->
+                <div class="requirements__cell requirements__cell--big">{{{DU_details--column-1--cis}}}</div><!--requirements__cell-->
+              </div><!--requirements__row-->
+              <div class="requirements__row requirements__row--alt" data-max-height="1.25" data-max-height-unit="rem">
+                <div class="requirements__cell requirements__cell--primary">{{{DU_type-column-2--cis}}}</div><!--requirements__cell-->
+                <div class="requirements__cell requirements__cell--big">{{{DU_details--column-2--cis}}}</div><!--requirements__cell-->
+              </div><!--requirements__row-->
+              <div class="requirements__row requirements__row--alt" data-max-height="1.25" data-max-height-unit="rem">
+                <div class="requirements__cell requirements__cell--primary">{{{DU_type-column-3--cis}}}</div><!--requirements__cell-->
+                <div class="requirements__cell requirements__cell--big">{{{DU_details--column-3--cis}}}</div><!--requirements__cell-->
+              </div><!--requirements__row-->
+            </div><!--requirements__table-->
+            <div class="infoGrid u-mb-07">
+              <div class="infoGrid__item">
+                {{#DU_heading-1--cis}}
+                <div class="subheading subheading--bordered" data-max-line="2">{{{DU_heading-1--cis}}}</div><!--subheading-->
+                {{/DU_heading-1--cis}}
+              </div><!--infoGrid__item-->
+              <div class="infoGrid__item u-grid-col-1-2">
+                {{#DU_blurb--cis}}
+                <div class="blurb" data-max-height="2.63" data-max-height-unit="rem">{{{DU_blurb--cis}}}</div><!--blurb-->
+                {{/DU_blurb--cis}}
+              </div><!--infoGrid__item-->
+              <div class="infoGrid__item u-grid-col-2-3 u-grid-row-1-3">
+                <div class="infoGrid__image"><div class="reposition-fix">{{{DU_image-3--cis}}}</div></div><!--infoGrid__image-->
+              </div><!--infoGrid__item-->
+            </div><!--infoGrid-->
+            <div class="infoGrid">
+              <div class="infoGrid__item">
+                {{#DU_heading-2--cis}}
+                <div class="subheading subheading--bordered" data-max-line="1">{{{DU_heading-2--cis}}}</div><!--subheading-->
+                {{/DU_heading-2--cis}}
+              </div><!--infoGrid__item-->
+              <div class="infoGrid__item u-grid-col-1-2">
+                {{#DU_blurb--cis}}
+                <div class="blurb" data-max-height="4.20" data-max-height-unit="rem">{{{DU_blurb-1--cis}}}</div><!--blurb-->
+                {{/DU_blurb--cis}}
+              </div><!--infoGrid__item-->
+              <div class="infoGrid__item u-grid-col-2-3 u-grid-row-2-3">
+                  {{#collection.DU_student-numbers--cis}}
+                  <div class="colorBox colorBox--alt u-ml-014 theme--{{{DU_theme-color--cis}}}{{^DU_theme-color--cis}}purple{{/DU_theme-color--cis}}">
+                    {{#DU_heading--cis}}
+                    <div class="colorBox__heading colorBox__heading--primary" data-max-line="1">{{{DU_heading--cis}}}</div><!--colorBox__heading-->
+                    {{/DU_heading--cis}}
+                    <div class="colorBox__text colorBox__text--primary" data-max-height="2.93" data-max-height-unit="rem">{{{DU_inner-text--cis}}}</div><!--colorBox__text-->
+                    {{/collection.DU_student-numbers--cis}}
+                	</div><!--colorBox-->
+              	</div><!--infoGrid__item-->
+            </div><!--infoGrid-->
+          </div><!--body-->
+
+        </div><!--container fit-->
+
+      </div><!--bleed-->
+
+    </div><!--page-->
+    {{/collection.DU_fees-and-funding-page--cis}}
+    <!--fees-and-funding-page-->
+
+
+
+
+    <!--contact-us-page-->
+    {{#collection.DU_contact-us-page--cis}}
+    <div class="page">
+
+      <div class="bleed">
+
+        <div class="container fit">
+
+          <div class="header header__internal">
+            <div class="heading heading--internal js-heading-target"></div><!--heading-->
+          </div><!--header-->
+          <div class="body">
+            <div class="featureImage featureImage--alt"><div class="reposition-fix">{{{DU_image-1--cis}}}</div></div><!--featureImage-->
+            <div class="contentCol__container">
+              <div class="contentCol contentCol--main">
+                {{#DU_heading--cis}}
+                <div class="subheading subheading--bordered" data-max-height="0.67" data-max-height-unit="rem">{{{DU_heading--cis}}}</div><!--subheading-->
+                {{/DU_heading--cis}}
+                <div class="contact__wrapper" data-max-height="3.1" data-max-height-unit="rem">
+                  <div class="contact">
+                    {{{DU_contact-details--cis}}}
+                    <div class="contact__image">
+                      <div class="reposition-fix">{{{DU_contact-image--cis}}}</div><!--reposition--fix-->
+                    </div><!--contact__iamge-->
+                  </div><!--contact-->
+                </div><!-- end contact__wrapper -->
+                <div class="grid">
+                  {{#collection.DU_social-media-details--cis}}
+                  {{#block.facebook-block--cis}}
+                  <div class="social">
+                    {{#DU_facebook-block-text--cis}}
+                    <img class="social__icon" src="https://files.outfit.io/media_library_items/98679/Facebook%2520icon.svg"><!--social__icon-->
+                    {{/DU_facebook-block-text--cis}}
+                    <div class="social__text" data-max-line="3">{{{DU_facebook-block-text--cis}}}</div><!--social__text-->
+                  </div><!--social-->
+                  {{/block.facebook-block--cis}}
+                  {{#block.twitter-block--cis}}
+                  <div class="social">
+                    {{#DU_twitter-block-text--cis}}
+                    <img class="social__icon" src="https://files.outfit.io/media_library_items/98677/Twitter%2520Icon.svg"><!--social__icon-->
+                    {{/DU_twitter-block-text--cis}}
+                    <div class="social__text" data-max-line="3">{{{DU_twitter-block-text--cis}}}</div><!--social__text-->
+                  </div><!--social-->
+                  {{/block.twitter-block--cis}}
+                  {{#block.instagram-block--cis}}
+                  <div class="social">
+                    {{#DU_instagram-block-text--cis}}
+                    <img class="social__icon" src="https://files.outfit.io/media_library_items/98681/Instagram%2520Icon.svg"><!--social__icon-->
+                    {{/DU_instagram-block-text--cis}}
+                    <div class="social__text" data-max-line="3">{{{DU_instagram-block-text--cis}}}</div><!--social__text-->
+                  </div><!--social-->
+                  {{/block.instagram-block--cis}}
+                  {{#block.youtube-block--cis}}
+                  <div class="social">
+                    {{#DU_youtube-block-text--cis}}
+                    <img class="social__icon" src="https://files.outfit.io/media_library_items/98680/Youtube%2520icon.svg"><!--social__icon-->
+                    {{/DU_youtube-block-text--cis}}
+                    <div class="social__text" data-max-line="3">{{{DU_youtube-block-text--cis}}}</div><!--social__text-->
+                  </div><!--social-->
+                  {{/block.youtube-block--cis}}
+                  {{#block.blog-block--cis}}
+                  <div class="social">
+                    {{#DU_blog-block-text--cis}}
+                    <img class="social__icon" src="https://files.outfit.io/media_library_items/98678/Blog%2520Icon.svg"><!--social__icon-->
+                    {{/DU_blog-block-text--cis}}
+                    <div class="social__text" data-max-line="3">{{{DU_blog-block-text--cis}}}</div><!--social__text-->
+                  </div><!--social-->
+                  {{/block.blog-block--cis}}
+                  {{/collection.DU_social-media-details--cis}}
+                  <div class="tef u-mt-016">
+                    <div class="reposition-fix">
+                      <div style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; margin: 0; padding: 0; background: url('https://files.outfit.io/media_library_items/84887/TEF-Gold-logo-CMYK.png') center center / cover no-repeat" 	class="outfit-resizable-background">
+          				<img src="https://files.outfit.io/media_library_items/84887/TEF-Gold-logo-CMYK.png" style="display: none; width: 0; height: 0;">
+        			  </div>
+                    </div>
+                  </div><!--tef-->
+                </div><!--grid-->
+              </div><!--contentCol-->
+              <div class="contentCol contentCol--side">
+                <div class="studentQuote theme--{{{DU_theme-color--cis}}}{{^DU_theme-color--cis}}cyan{{/DU_theme-color--cis}}">
+                  {{#DU_student-photo--cis}}
+                  <div class="studentQuote__image">{{{DU_student-photo--cis}}}</div><!--studentQuote__image-->
+                  {{/DU_student-photo--cis}}
+                  <div class="studentQuote__text" data-max-height="5.29" data-max-height-unit="rem">{{{DU_student-quote--cis}}}</div><!--studentQuote__text-->
+                </div><!--studentQuote-->
+              </div><!--contentCol-->
+            </div><!--contentCol__container-->
+          </div><!--body-->
+          <div class="footer">
+            <div class="disclaimer" data-max-line="2">
+             <strong>DISCLAIMER:&nbsp;</strong>The information on this fact sheet was deemed correct at time of printing. It is intended for information and guidance purposes only and does not constitute a contract. Please check all details at time of application.
+            </div><!--disclaimer-->
+            <div class="cricos">{{#metadata}}OUT_{{export_id}}{{/metadata}}</div><!--cricos-->
+          </div><!--footer-->
+
+        </div><!--container fit-->
+
+      </div><!--bleed-->
+
+    </div><!--page-->
+    {{/collection.DU_contact-us-page--cis}}
+    <!--contact-us-page-->
+
+
+
+    <script>
+      window.showCrop = {{show-crop}}{{^show-crop}}true{{/show-crop}};
+    </script>
+    <script src="js/main.js"></script>   
+    <script src="js/prefixfree.js"></script>
+    <script src="js/placeholder-controller.js"></script>
+    <script src="js/char-limit.js"></script>
+    <script src="js/check-export-mode.js"></script>
+    <script src="js/max-line-check.js"></script>
+    <script src="js/max-height-check.js"></script>
+    <script src="js/hide-empty-titles.js"></script>
+    <script src="https://outfit-assets-production.s3-accelerate.amazonaws.com/scripts/textfit.0.0.4.min.js" type="text/javascript"></script>
+    <script>
+
+      // Using setInterval() in this case, cause template is very big 
+      // and mutation observer is not working well in export
+      setInterval(() => {
+        injectHeading();
+        maxLineCheck();
+        maxHeightCheck();
+      }, 1000);
+
+      // Calling text size restriction functions once the fonts are loaded
+      document.fonts.ready.then(() => {
+        maxLineCheck();
+        maxHeightCheck();
+      });
+
+      placeholderController();
+      checkCrop();
+      checkExport();
+      charLimit();
+
+      // TextFit function decreases the font of the selected element to make it fit in single line (if needed, uncomment the code bellow)
+      TextFit.fit({
+        selector: '.textFit'
+      });
+
+      TextFit.fit({
+        selector: '.textFit--vertical',
+        fitMode: 'vertical',
+        alignItems: 'center'
+      }); 
+
+      function detectSystem() {
+        const isMac = window.navigator.appVersion.includes('Mac');
+        if ( isMac ) document.body.classList.add('is-mac');
+      }
+
+      function injectHeading() {
+        const src = document.querySelector('.js-heading-src');
+        const targets = document.querySelectorAll('.js-heading-target');
+
+        targets.forEach(target => {
+          // If no text is set for the Heading 1 input, it will fallback to 'Guide to students from India'
+          const output = (src.innerText == '') ? 'Guide to students from <strong>India</strong>' : src.innerHTML;
+          target.innerHTML = output;
+        });
+      }
+
+      detectSystem();
+
+    </script>
+
+    <script type="text/javascript">
+      // Add many fallbacks for Print Ready
+      document.addEventListener('DOMContentLoaded', function(event) {
+        document.dispatchEvent(new Event('printready'));
+      });
+
+      setTimeout(function() {
+        document.dispatchEvent(new Event('printready'));
+      }, 2000);
+
+      document.dispatchEvent(new Event('printready'));
+    </script>    
+
+  </body>
+</html>
