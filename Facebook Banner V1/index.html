@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html data-sign="OSM">
+  <head>
+    <title>Template title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="css/minireset.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/placeholder-controller.css">
+
+    <style>
+
+      :root {
+        --white: {{{account.colors.white}}};
+        --purple: {{{account.colors.primary-purple}}};
+        --yellow: {{{account.colors.primary-yellow}}};
+        --cyan: {{{account.colors.primary-cyan}}};
+        --red: {{{account.colors.primary-red}}};
+        --gold: {{{account.colors.primary-gold}}};
+      }
+
+      .backgroundImage {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        overflow: hidden;
+      }
+
+      .backgroundImage div {
+        width: auto !important;
+        height: auto !important;
+        right: 0;
+        bottom: 0;
+      }      
+
+      /* Helper class for fixing Reposition tool bug */
+      .reposition-fix {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;        
+      }  
+
+      .container {
+        display: flex;
+        justify-content: flex-end;
+        padding: 20pt 20pt 20pt 0pt;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(4, 1fr);
+        width: 211.6pt;
+      }
+
+      .grid__item {
+        position: relative;
+        overflow: hidden;
+        opacity: 0.9;
+      }
+
+      .gridTapestry--big {
+        grid-column: span 2;
+        grid-row: span 2;
+      }
+
+      .gridTapestry--left {
+        border-radius: 0 0 0 100%;
+      }
+
+      .gridTapestry--right {
+        border-radius: 0 0 100% 0;
+      }
+
+      .u-grid-col-1-to-2 {
+        grid-column: 1 / 2;
+      }
+
+      .u-grid-col-2-to-3 {
+        grid-column: 2 / 3;
+      }
+
+      .u-grid-col-3-to-5 {
+        grid-column: 3 / 5;
+      }
+
+      .u-grid-col-4-to-5 {
+        grid-column: 4 / 5; 
+      }
+
+      .u-grid-col-4-to-6 {
+        grid-column; 4 / 6;
+      }
+
+      .gridTapestry--white {
+        background-color: var(--white);
+      }
+
+      .gridTapestry--purple {
+        background-color: var(--purple);
+      }
+
+      .gridTapestry--yellow {
+        background-color: var(--yellow);
+      }
+
+      .gridTapestry--cyan {
+        background-color: var(--cyan);
+      }
+
+      .gridTapestry--red {
+        background-color: var(--red);
+      }
+
+      .gridTapestry--gold {
+        background-color: var(--gold);
+      }
+
+      /* ANY OTHER STYLES THAT NEED MUSTACHE.JS CAPABILITIES */
+    </style>
+  </head>
+  <body style="background: white" class="u-placeholder-{{ placeholder-toggle-new }}{{^placeholder-toggle-new}}hide{{/placeholder-toggle-new}}" data-crop="{{show-crop}}">
+    <div class="placeholderMaster" data-opacity="{{ placeholder-opacity }}">
+      {{#placeholder-image-1}}
+      <div class="placeholderMaster__item" data-bg="{{ placeholder-image-1 }}"></div>
+      {{/placeholder-image-1}}
+    </div><!-- end placeholderMaster -->
+    <div class="page">
+
+      <div class="bleed">
+
+        <div class="container fit">
+
+          <div class="backgroundIimage"><div class="reposition-fix">{{{DU_background-image--smbf}}}</div></div><!--backgroundIimage-->
+          <div class="grid">
+            <div class="grid__item u-grid-col-2-to-3 gridTapestry--{{{DU_tapestry-element-colour--smbf}}}"></div><!--grid__item-->
+            <div class="grid__item u-grid-col-4-to-5 gridTapestry--{{{DU_tapestry-element-colour--smbf}}}"></div><!--grid__item-->
+            <div class="grid__item u-grid-col-2-to-3 gridTapestry--{{{DU_tapestry-element-colour--smbf}}}"></div><!--grid__item-->
+            <div class="grid__item gridTapestry--{{{DU_tapestry-element-colour--smbf}}}"></div><!--grid__item-->
+            <div class="grid__item u-grid-col-1-to-2 gridTapestry--left gridTapestry--{{{DU_tapestry-element-colour--smbf}}}"></div><!--grid__item-->
+            <div class="grid__item u-grid-col-3-to-5 gridTapestry--big gridTapestry--right gridTapestry--{{{DU_tapestry-element-colour--smbf}}}"></div><!--grid__item-->
+            <div class="grid__item u-grid-col-2-to-3 gridTapestry--{{{DU_tapestry-element-colour--smbf}}}"></div><!--grid__item-->
+          </div><!--grid-->
+
+        </div><!--container fit-->
+
+      </div><!--bleed-->
+
+    </div><!--page-->
+
+
+    <script>
+      window.showCrop = {{show-crop}}{{^show-crop}}true{{/show-crop}};
+    </script>
+    <script src="js/main.js"></script>   
+    <script src="js/prefixfree.js"></script>
+    <script src="js/placeholder-controller.js"></script>
+    <script src="js/char-limit.js"></script>
+    <script src="js/check-export-mode.js"></script>
+    <script src="js/max-line-check.js"></script>
+    <script src="js/max-height-check.js"></script>
+    <script src="https://outfit-assets-production.s3-accelerate.amazonaws.com/scripts/textfit.0.0.4.min.js" type="text/javascript"></script>
+    <script>
+
+      // Tracking text changes and firing text restriction functions (mutationObserver)
+      const overflowObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          maxLineCheck();
+          maxHeightCheck();
+          charLimit();
+        });
+      });
+
+      overflowObserver.observe(document.body, {
+        attributes: false,
+        characterData: true,
+        childList: true,
+        subtree: true,
+        attributeOldValue: false,
+        characterDataOldValue: true
+      });
+
+      // Calling text size restriction functions once the fonts are loaded
+      document.fonts.ready.then(() => {
+        maxLineCheck();
+        maxHeightCheck();
+      });
+
+      placeholderController();
+      checkCrop();
+      checkExport();
+      charLimit();
+
+      // TextFit function decreases the font of the selected element to make it fit in single line (if needed, uncomment the code bellow)
+      TextFit.fit({
+        selector: '.textFit'
+      });
+      
+      function detectSystem() {
+        const isMac = window.navigator.appVersion.includes('Mac');
+		if ( isMac ) document.body.classList.add('is-mac');
+      }
+
+      detectSystem();      
+
+    </script>
+
+
+  </body>
+</html>
