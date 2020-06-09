@@ -157,8 +157,8 @@
       .body--page7 { display: block; }
 
       .body__inner {
-        column-count: 2;
-        column-gap: 0.443rem;
+        /* column-count: 2;
+        column-gap: 0.443rem; */
         padding-top: 0.350rem;
       }
 
@@ -197,7 +197,7 @@
         position: absolute;
         display: block;
         left: 50%;
-        bottom: -0.06rem;
+        bottom: -0.065rem;
         width: 0.4rem;
         height: 0.1rem;
         background: var(--white);
@@ -351,6 +351,8 @@
         padding: 0.278rem 0 0.57rem;
       }
 
+      .copy--page1 { column-count: unset; }
+
       .copy__maxHeight { max-height: 7.87rem; }
 
       .copy--page10 { 
@@ -359,6 +361,8 @@
         padding: 0;
         margin: 0.278rem 0 0;
       }
+
+      .copy__inner { max-height: 4.2rem; }
 
       .content--page3,
       .content--page4 {
@@ -672,7 +676,16 @@
         grid-column-gap: 0.5rem;
       }
 
+      /* Styling related to Dynamic Columns */
+      .column-structure{ display: flex; }
+      .column-structure .column { margin-right: 0.5rem; }
+      .column-structure .column:last-child{ margin-right: 0; }
+      .column { flex: 1; }
 
+      .original-content{ display: none; }
+
+      [element-error='true'][column-error='max-column']:hover::after { content: "You can only add a maximum of " attr(max-columns) " columns"; }
+      [element-error='true'][column-error='min-column']:hover::after { content: "You must add at least " attr(min-columns) " column/s"; }
     </style>
   </head>
   <body style="background: white" class="u-placeholder-{{ placeholder-toggle-new }}{{^placeholder-toggle-new}}hide{{/placeholder-toggle-new}}
@@ -776,7 +789,18 @@
         <div class="container fit fit--page1">
           <div class="contentSection">
             <div class="heading heading--page1" data-max-height="2" data-max-height-unit="rem"> {{{DU_heading--brb}}} </div> <!-- heading -->
-            <div class="copy"> <div  data-max-height="7.3" data-max-height-unit="rem"> {{{DU_copy--brb}}} </div> <!-- data-max-height --> </div> <!-- copy -->
+            <div class="copy copy--page1"
+                 dynamic-columns 
+                 min-columns="1" 
+                 max-columns="2" 
+                 column-error="" 
+                 data-original-input="{{{DU_copy--brb}}}"
+                 > 
+              <div class="copy__inner" data-max-height="css"> 
+                <div class="original-content">{{{DU_copy--brb}}}</div>
+                <div class="column-output"></div>  
+              </div> <!-- data-max-height --> 
+            </div> <!-- copy -->
           </div> <!-- contentSection -->
           <div class="grid grid--page1">
             <div class="grid__item u-col-row-span-2"> <div class="reposition-fix"> {{{DU_image-1--brb}}} </div> <!-- reposition-fix --> </div> <!-- grid__item -->
@@ -803,7 +827,7 @@
       <div class="bleed">
 
         <div class="container fit fit--page2">
-          <div class="content dynamic-columns" dynamic-columns min-columns="1" max-columns="3" column-error=""></div>
+          <div class="content dynamic-columns" dynamic-columns min-columns="1" max-columns="2" column-error=""></div>
           <div class="grid grid--page2">
             <div class="grid__item grid__item--page2" data-max-height="dynamic">
               {{#collection.DU_left-column-content-blocks--brb}}
@@ -1025,8 +1049,15 @@
           {{#DU_heading--brb}} <div class="header header--page7 js-subtrahend" data-max-height="4.3" data-max-height-unit="rem">{{{DU_heading--brb}}} </div> <!-- header--page7 --> {{/DU_heading--brb}}
           <div data-max-height="dynamic">
             <div class="body body--page7">
-              <div class="body__inner">
-                {{{DU_body-copy--brb}}}
+              <div class="body__inner"
+                   dynamic-columns 
+                   min-columns="1" 
+                   max-columns="2" 
+                   column-error="" 
+                   data-original-input="{{{DU_body-copy--brb}}}"
+                   >
+                <div class="original-content">{{{DU_body-copy--brb}}}</div>
+                <div class="column-output"></div>               
               </div> <!-- body__inner -->
             </div> <!-- body -->
           </div> <!-- data-max-height -->
@@ -1100,7 +1131,18 @@
         <div class="container fit fit--page10">
           <div class="contentSection contentSection--page10 js-gridTransform-contentSection">
             {{#DU_heading--brb}} <div class="heading heading--page10" data-max-height="2" data-max-height-unit="rem"> {{{DU_heading--brb}}} </div> <!-- heading --> {{/DU_heading--brb}}
-            <div class="copy copy--page10 js-gridTransform-copy" data-max-height="css"> {{{DU_copy--brb}}} </div> <!-- copy -->
+
+            <div class="copy copy--page10 js-gridTransform-copy" 
+                 data-max-height="css"
+                 dynamic-columns 
+                 min-columns="1" 
+                 max-columns="2" 
+                 column-error="" 
+                 data-original-input="{{{DU_copy--brb}}}"
+                 > 
+              <div class="original-content">{{{DU_copy--brb}}}</div>
+              <div class="column-output"></div>  
+            </div> <!-- copy -->
           </div> <!-- contentSection -->
           <div class="grid grid--page10 js-gridTransform-grid">
             <div class="grid__item u-col-row-span-2"> <div class="reposition-fix"> {{{DU_image-1--brb}}} </div> <!-- reposition-fix --> </div> <!-- grid__item -->
@@ -1307,6 +1349,7 @@
       document.fonts.ready.then(() => {
         maxLineCheck();
         maxHeightCheck();
+        dynamicColumnSetup();
       });
 
 
@@ -1347,30 +1390,52 @@
         });
       }
 
-      setInterval(function(){ dynamicColumnSetup(); }, 500);
+      const dynamicColumnsObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          dynamicColumnSetup();
+        });
+      });
 
-      function dynamicColumnSetup(){
-        var dynamicColumns = document.querySelectorAll("[dynamic-columns]")
-        var htmlTags = "h1, h2, h3, h4, h5, h6, p";
+      const dynamicColumnsSources = document.querySelectorAll(".original-content");
+
+      if ( dynamicColumnsSources.length > 0 ) {
+        dynamicColumnsSources.forEach(src => {
+          dynamicColumnsObserver.observe(src, {
+            attributes: false,
+            characterData: true,
+            childList: true,
+            subtree: true,
+            attributeOldValue: false,
+            characterDataOldValue: true
+          });            
+        });
+      }      
+
+
+      function dynamicColumnSetup() {
+        var dynamicColumns = document.querySelectorAll("[dynamic-columns]");
+        var htmlTags = "h1, h2, h3, h4, h5, h6, p, ul, ol";
 
         dynamicColumns.forEach((dynamicColumn) =>{
           var minColumns = dynamicColumn.getAttribute("min-columns");
           var maxColumns = dynamicColumn.getAttribute("max-columns");
           var htmlTagElements = dynamicColumn.querySelector(".original-content").querySelectorAll(htmlTags);
-          var breakPointIndexes = [];
+          var breakPointIndexes = [];          
 
           htmlTagElements.forEach((el, index) =>{
-            if((el.innerHTML) === "[column-break]"){
+            if ( (el.innerHTML).includes('[column-break]') ){
               breakPointIndexes.push(index);
             }
           });
+
           breakPointIndexes.push(htmlTagElements.length-1);
-          var columnOutput = dynamicColumn.querySelector(".column-output")
+
+          var columnOutput = dynamicColumn.querySelector(".column-output");
           var columns = [];
           var currentBreakPoint = 0;
           var columnCount = breakPointIndexes.length;
+          var htmlElementsArray = Array.prototype.slice.call(htmlTagElements);          
 
-          var htmlElementsArray = Array.prototype.slice.call(htmlTagElements);
           breakPointIndexes.forEach((breakPoint, j) => {
             columns.push(htmlElementsArray.slice(currentBreakPoint, breakPoint));
 
@@ -1379,7 +1444,7 @@
             } else{
               currentBreakPoint = breakPoint+1;
             }
-          });
+          });          
 
           columnOutput.innerHTML = "";
 
@@ -1387,7 +1452,6 @@
           columnStructure.setAttribute("class", "column-structure");
 
           columns.forEach(column => {
-            console.log(column)
             var reformedHTML = "";
             column.forEach(htmlElement => {
               reformedHTML += htmlElement.outerHTML;
@@ -1402,24 +1466,21 @@
 
           columnOutput.appendChild(columnStructure);
 
-          if(columnCount > maxColumns){
+          if (columnCount > maxColumns) {
+            dynamicColumn.classList.add('column-overflow');
             dynamicColumn.setAttribute("element-error", "true");
             dynamicColumn.setAttribute("column-error", "max-column");
-          } else if(columnCount < minColumns){
+          } else if (columnCount < minColumns) {
+            dynamicColumn.classList.add('overflow');
             dynamicColumn.setAttribute("element-error", "true");
             dynamicColumn.setAttribute("column-error", "min-column"); 
           } else {
-          }
-          if(columnCount > maxColumns || columnCount < minColumns){
-            dynamicColumn.setAttribute("element-error", "true");
-            dynamicColumn.setAttribute("column-error", "min-column");
-            dynamicColumn.setAttribute("column-error", "max-column");   
-          } else{
+            dynamicColumn.classList.remove('column-overflow');
             dynamicColumn.setAttribute("element-error", "false");
-            dynamicColumn.setAttribute("column-error", "");   
+            dynamicColumn.setAttribute("column-error", "");
           }
         });
-      }      
+      }  
 
       gridTransform();
       hideEmptyTitles('.content__title');
